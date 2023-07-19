@@ -3,8 +3,12 @@
  * Plugin Name: Custom Forms
  */
 
-defined('ABSPATH') or die;
+//End if not accessed via wordpress handlers
+defined('ABSPATH') or die();
 
+/**
+ * Register Form post type
+ */
 function register_form_post_type() {
     register_post_type('Form', array(
         'rewrite' => array('slug' => 'forms'),
@@ -27,22 +31,63 @@ function register_form_post_type() {
     )
     );
 }
-
 add_action('init', 'register_form_post_type');
 
-class CustomFormsPlugin {
-    function activate() {
 
-    }
+/**
+ * Add Menu and pages
+ */
+function add_menu_pages() {
+    add_menu_page('Settings', 'Forms', 'manage_options', 'form_settings', 'admin_settings_page', 'dashicons-clipboard', 110);
+}
+add_action('admin_menu', 'add_menu_pages');
 
-    function deactive() {
-
-    }
-
-    function uninstall() {
-
-    }
+function admin_settings_page() {
+    require_once plugin_dir_path(__FILE__) . 'templates/admin.php';
 }
 
+/**
+ * Enqueue Assets to head
+ */
 
+/**
+ * Enqueue stylesheets and scripts to admin panel
+ */
+function enqueue_admin() {
+    wp_enqueue_style('custom-forms_style', plugins_url('/assets/css/admin.css'));
+}
+add_action('admin_enqueue_scripts', 'enqueue_admin');
+
+/**
+ * Enaqueue stylesheets and scripts to front end
+ */
+function enqueue() {
+    wp_enqueue_style('custom-forms_style', plugins_url('/assets/css/main.css'));
+}
+add_action('wp_enqueue_scripts', 'enqueue');
+
+
+
+
+
+/**
+ * Plugin Meta Functions
+ */
+
+//Activate
+function activate() {
+    flush_rewrite_rules();
+}
+register_activation_hook(__FILE__, 'activate');
+
+//Deactivate
+function deactivate() {
+    flush_rewrite_rules();
+}
+register_deactivation_hook(__FILE__, 'deactivate');
+
+//Something is crashing the entire site without throwing an error here
+// //Uninstall and wipe related data
+// require_once plugin_dir_path(__FILE__) . 'includes/uninstall.php';
+// register_uninstall_hook(__FILE__, 'uninstall');
 ?>
