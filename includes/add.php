@@ -1,51 +1,60 @@
 <?php
-function custom_form_add_new_page() {
+/**
+ * Add Metaboxes for the form post type edit/add screens:
+ * - Form Builder
+ * - Submission Rules
+ */
+function add_form_custom_metaboxes() {
+    add_meta_box(
+        'form_builder',
+        'Form Builder',
+        'form_builder_html',
+        'form'
+    );
+    add_meta_box(
+        'form_submission_rules',
+        'Form Submission Rules',
+        'form_submission_rules_html',
+        'form'
+    );
+}
+
+
+/**
+ * Form Builder Metabox HTML
+*/
+function form_builder_html($post) {
     ?>
-    <div class="wrap">
-        <h1><?php echo esc_html__('Add New Custom Form', 'text-domain'); ?></h1>
-        <form id="custom-form-add-new-form" method="post" action="">
-            <!-- Your custom form fields here -->
-            <label for="form_title">Form Title:</label>
-            <input type="text" name="form_title" id="form_title" value="">
-            
-            <!-- Additional custom fields can be added here -->
-            
-            <?php submit_button('Publish Form'); ?>
-        </form>
+    <div id="input-editor">
+
+    </div>
+    <div class="pane-container">
+        <div class="left-pane" id="input-select-button-group">
+            <button type="button" value="button"><span class="dashicons-button"></span> Button</button>
+            <button type="button" value="checkbox"><span class="dashicons-forms"></span> Checkbox</button>
+            <button type="button" value="radio"><span class="dashicons-editor-ul"></span> Radio Button</button>
+            <button type="button" value="select"><span class="dashicons-menu"></span> Select</button>
+            <button type="button" value="text"><span class="dashicons-textcolor"></span> Text</button>
+            <button type="button" value="textarea"><span class="dashicons-editor-paragraph"></span> Text Area</button>
+            <button type="button" value="number"><span class="dashicons-info"></span> Number</button>
+            <button type="button" value="range"><span class="dashicons-admin-settings"></span> Slider</button>
+            <button type="button" value="color"><span class="dashicons-color-picker"></span> Color Select</button>
+            <button type="button" value="date"><span class="dashicons-calendar-alt"></span> Date</button>
+            <button type="button" value="datetime-local"><span class="dashicons-calendar-alt"></span> Date & Time</button>
+            <button type="button" value="month"><span class="dashicons-calendar"></span> Month</button>
+            <button type="button" value="week"><span class="dashicons-calendar"></span> Week</button>
+            <button type="button" value="time"><span class="dashicons-clock"></span> Time</button>
+            <button type="button" value="email"><span class="dashicons-email"></span> Email</button>
+            <button type="button" value="phone"><span class="dashicons-phone"></span> Phone Number</button>
+            <button type="button" value="file"><span class="dashicons-default"></span> File Upload</button>
+            <button type="button" value="url"><span class="dashicons-admin-links"></span> URL</button>
+            <button type="button" value="image"><span class="dashicons-image"></span> Image Upload</button>
+            <button type="button" value="hidden"><span class="dashicons-hidden"></span> Hidden Value</button>
+        </div>
+        <div class="right-pane" id="form-preview">
+
+        </div>
     </div>
     <?php
 }
-
-function add_custom_form_submenu_page() {
-    add_submenu_page(
-        'edit.php?post_type=your_custom_post_type', // Parent menu (custom post type menu)
-        'Add New Custom Form', // Page title
-        'Add New', // Menu title
-        'edit_posts', // Capability required to access the page
-        'custom-form-add-new', // Unique menu slug
-        'custom_form_add_new_page' // Callback function to render the content
-    );
-}
-add_action('admin_menu', 'add_custom_form_submenu_page');
-
-function handle_custom_form_submission() {
-    if (isset($_POST['form_title'])) {
-        // Sanitize and save the form data to the database (custom post type)
-        $form_title = sanitize_text_field($_POST['form_title']);
-        $post_args = array(
-            'post_title'   => $form_title,
-            'post_status'  => 'publish',
-            'post_type'    => 'your_custom_post_type', // Replace with your custom post type slug
-        );
-        $post_id = wp_insert_post($post_args);
-        
-        // You can also save additional custom fields here if needed
-        
-        // Redirect the user to the custom post type list page after form submission
-        wp_redirect(admin_url('edit.php?post_type=your_custom_post_type')); // Replace with your custom post type slug
-        exit;
-    }
-}
-add_action('admin_post_custom-form-add-new', 'handle_custom_form_submission');
-
 ?>

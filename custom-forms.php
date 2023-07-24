@@ -46,6 +46,13 @@ function admin_settings_page() {
     require_once plugin_dir_path(__FILE__) . 'templates/admin.php';
 }
 
+function settings_link($links) {
+    $setting_link_html = '<a href="options-general.php?page=form_settings">Settings</a>';
+    array_push($links, $setting_link_html);
+    return $links;
+}
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'settings_link');
+
 /**
  * Enqueue Assets to head
  */
