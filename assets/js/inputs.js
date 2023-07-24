@@ -352,6 +352,34 @@ class TextAreaInput extends Input {
                  placeholder="${this.placeholder}">${this.value}</textarea>
         `
     }
+
+    renderTemplate() {
+        return `
+            <textarea class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}" 
+                name="${this.name}" rows="${this.rows}" cols="${this.cols}" wrap="${this.wrap}" 
+                ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''}
+                 placeholder="${this.placeholder}" disabled>${this.value}</textarea>
+        `
+    }
+        
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-rows">Rows</label>
+        <input type="number" name="form-option-rows" />
+        <label for="form-option-cols">Cols</label>
+        <input type="number" name="form-option-cols" />
+        <label for="form-option-wrap">Wrap</label>
+        <input type="number" name="form-option-wrap" />
+        <label for="form-option-readoly">Read-only?</label>
+        <input type="text" name="form-option-readonly" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class NumberInput extends Input {
@@ -373,6 +401,34 @@ class NumberInput extends Input {
                 ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="number" 
+                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+                step="${this.step}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} disabled />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-min">Minimum</label>
+        <input type="number" name="form-option-min" />
+        <label for="form-option-max">Maximum</label>
+        <input type="number" name="form-option-max" />
+        <label for="form-option-step">Step</label>
+        <input type="number" name="form-option-step" />
+        <label for="form-option-wrap">Wrap</label>
+        <input type="text" name="form-option-readonly" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class RangeInput extends Input {
@@ -392,6 +448,34 @@ class RangeInput extends Input {
                 ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="range" 
+                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+                step="${this.step}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} disabled />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-min">Minimum</label>
+        <input type="number" name="form-option-min" />
+        <label for="form-option-max">Maximum</label>
+        <input type="number" name="form-option-max" />
+        <label for="form-option-step">Step</label>
+        <input type="number" name="form-option-step" />
+        <label for="form-option-wrap">Wrap</label>
+        <input type="text" name="form-option-readonly" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class ColorInput extends Input {
@@ -405,6 +489,23 @@ class ColorInput extends Input {
             <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="color" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="color" 
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
         `
     }
 }
@@ -425,6 +526,29 @@ class DateInput extends Input {
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="date" 
+                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
+        `
+    }
+    
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-min">Minimum</label>
+        <input type="number" name="form-option-min" />
+        <label for="form-option-max">Maximum</label>
+        <input type="number" name="form-option-max" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class DateTimeLocalInput extends Input {
@@ -443,6 +567,29 @@ class DateTimeLocalInput extends Input {
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="datetime-local" 
+                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
+        `
+    }
+    
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-min">Minimum</label>
+        <input type="number" name="form-option-min" />
+        <label for="form-option-max">Maximum</label>
+        <input type="number" name="form-option-max" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class MonthInput extends Input {
@@ -455,8 +602,27 @@ class MonthInput extends Input {
     render() {
         return `
             <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="month" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
-                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} />
+        `
+    }
+    
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="month" 
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} disabled />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
         `
     }
 }
@@ -471,8 +637,27 @@ class WeekInput extends Input {
     render() {
         return `
             <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="week" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
-                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="week" 
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} disabled />
+        `
+    }
+    
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
         `
     }
 }
@@ -493,6 +678,29 @@ class TimeInput extends Input {
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
         `
     }
+    
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="time" 
+                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+                placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
+        `
+    }
+    
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-min">Minimum</label>
+        <input type="number" name="form-option-min" />
+        <label for="form-option-max">Maximum</label>
+        <input type="number" name="form-option-max" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class EmailInput extends Input {
@@ -509,6 +717,25 @@ class EmailInput extends Input {
                 ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="email" 
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} disabled />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class PhoneInput extends Input {
@@ -523,6 +750,25 @@ class PhoneInput extends Input {
             <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="phone" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="phone" 
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
         `
     }
 }
@@ -542,6 +788,29 @@ class FileInput extends Input {
                 multiple="${this.mutliple}" ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file" 
+                id="${this.name}" name="${this.name}" accept="${this.accept}" 
+                multiple="${this.mutliple}" ${this.required ? 'required' : ''} disabled />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-accept">Accept</label>
+        <input type="text" name="form-option-accept" />
+        <label for="form-option-name">Allow Multiple</label>
+        <input type="checkbox" name="form-option-checkbox" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class UrlInput extends Input {
@@ -558,6 +827,25 @@ class UrlInput extends Input {
                 ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="url" 
+                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+                ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class ImageInput extends Input {
@@ -572,6 +860,24 @@ class ImageInput extends Input {
                 id="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} />
         `
     }
+
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="image" 
+                id="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
+        <label for="form-option-placeholder">Placeholder</label>
+        <input type="text" name="form-option-placeholder" />
+        <label for="form-option-required">Is a Required Field?</label>
+        <input type="checkbox" name="form-option-required" />
+        `
+    }
 }
 
 class HiddenInput extends Input {
@@ -584,6 +890,20 @@ class HiddenInput extends Input {
         return `
             <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="hidden" 
                 id="${this.name}" name="${this.name}" value="${this.value}" />
+        `
+    }
+    
+    renderTemplate() {
+        return `
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="hidden" 
+                id="${this.name}" name="${this.name}" value="${this.value}" />
+        `
+    }
+
+    renderOptions() {
+        return super.renderOptions + `
+        <label for="form-option-name">Name</label>
+        <input type="text" name="form-option-name" />
         `
     }
 }
