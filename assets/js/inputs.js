@@ -5,6 +5,12 @@ class Input {
         this.userDefinedClasses = '';
         this.name = '';
     }
+    constructor(label, primaryClass, userDefinedClasses, name) {
+        this.label = '';
+        this.primaryClass = '';
+        this.userDefinedClasses = '';
+        this.name = '';
+    }
 
     render() {}
     renderTemplate() {}
@@ -20,7 +26,7 @@ class Input {
 
 class ButtonInput extends Input {
     constructor() {
-        super();
+        super("New Button", "customInput_button", "", "new_button");
         this.value = '';
         this.required = false;
     }
@@ -54,7 +60,7 @@ class ButtonInput extends Input {
 //Represents group of checkboxes
 class CheckboxGroupInput extends Input {
     constructor() {
-        super();
+        super("New Checkbox Group", "customInput_button", "", "new_checkbox_group");
         //options contains Checkbox Inputs for every checkbox input under the same group
         this.options = [];
     }
@@ -103,6 +109,7 @@ class CheckboxGroupInput extends Input {
 //Represents individual checkbox of a group
 class CheckboxInput extends Input {
     constructor() {
+        super("New Checkbox", "", "", "new_checkbox");
         this.value = '';
     }
 
@@ -133,7 +140,7 @@ class CheckboxInput extends Input {
 //Represents group of radio buttons
 class RadioGroupInput extends Input {
     constructor() {
-        super();
+        super("New Radio Button Group", "customInput_radio", "", "new_radio_button_group");
         //options contains Radio Inputs for every button input under the same group and name
         this.options = [];
     }
@@ -182,6 +189,7 @@ class RadioGroupInput extends Input {
 //Represents individual radio button of a group and name
 class RadioInput extends Input {
     constructor() {
+        super("New Radio Button", "", "", "new_radio_button");
         this.value = '';
     }
 
@@ -212,7 +220,7 @@ class RadioInput extends Input {
 //represents dropdown and all options
 class SelectGroupInput extends Input {
     constructor() {
-        super();
+        super("New Select Group", "customInput_select", "", "new_select_group");
         this.size = '';
         this.multiple = false;
         this.required = false;
@@ -263,6 +271,7 @@ class SelectGroupInput extends Input {
 //Represents individual select option of a group
 class SelectInput extends Input {
     constructor() {
+        super("New Option", "", "", "new_option");
         this.value = '';
     }
 
@@ -290,7 +299,7 @@ class SelectInput extends Input {
 
 class TextInput extends Input {
     constructor() {
-        super();
+        super("New Text", "customInput_text", "", "new_text");
         this.value = '';
         this.maxlength = '';
         this.size = '';
@@ -334,7 +343,7 @@ class TextInput extends Input {
 
 class TextAreaInput extends Input {
     constructor() {
-        super();
+        super("New Text Area", "customInput_textarea", "", "new_text_area");
         this.value = '';
         this.rows = '';
         this.cols = '';
@@ -384,7 +393,7 @@ class TextAreaInput extends Input {
 
 class NumberInput extends Input {
     constructor() {
-        super();
+        super("New Number", "customInput_number", "", "new_number");
         this.min = '';
         this.max = '';
         this.step = '';
@@ -433,7 +442,7 @@ class NumberInput extends Input {
 
 class RangeInput extends Input {
     constructor() {
-        super();
+        super("New Range", "customInput_range", "", "new_range");
         this.min = '';
         this.max = '';
         this.step = '';
@@ -480,7 +489,7 @@ class RangeInput extends Input {
 
 class ColorInput extends Input {
     constructor() {
-        super();
+        super("New Color", "customInput_color", "", "new_color");
         this.required = false;
     }
 
@@ -512,7 +521,7 @@ class ColorInput extends Input {
 
 class DateInput extends Input {
     constructor() {
-        super();
+        super("New Date", "customInput_date", "", "new_date");
         this.min = '';
         this.max = '';
         this.placeholder = '';
@@ -553,7 +562,7 @@ class DateInput extends Input {
 
 class DateTimeLocalInput extends Input {
     constructor() {
-        super();
+        super("New Date-Time", "customInput_datetime", "", "new_date-time");
         this.min = '';
         this.max = '';
         this.placeholder = '';
@@ -594,7 +603,7 @@ class DateTimeLocalInput extends Input {
 
 class MonthInput extends Input {
     constructor() {
-        super();
+        super("New Month", "customInput_month", "", "new_month");
         this.placeholder = '';
         this.required = false;
     }
@@ -629,7 +638,7 @@ class MonthInput extends Input {
 
 class WeekInput extends Input {
     constructor() {
-        super();
+        super("New Week", "customInput_week", "", "new_week");
         this.placeholder = '';
         this.required = false;
     }
@@ -664,7 +673,7 @@ class WeekInput extends Input {
 
 class TimeInput extends Input {
     constructor() {
-        super();
+        super("New Time", "customInput_time", "", "new_time");
         this.min = '';
         this.max = '';
         this.placeholder = '';
@@ -705,7 +714,7 @@ class TimeInput extends Input {
 
 class EmailInput extends Input {
     constructor() {
-        super();
+        super("New Email", "customInput_email", "", "new_email");
         this.placeholder = '';
         this.required = false;
     }
@@ -740,7 +749,7 @@ class EmailInput extends Input {
 
 class PhoneInput extends Input {
     constructor() {
-        super();
+        super("New Phone", "customInput_phone", "", "new_phone");
         this.placeholder = '';
         this.required = false;
     }
@@ -775,7 +784,7 @@ class PhoneInput extends Input {
 
 class FileInput extends Input {
     constructor() {
-        super();
+        super("New File", "customInput_file", "", "new_file");
         this.accept = '';
         this.mutliple = false;
         this.required = false;
@@ -815,7 +824,7 @@ class FileInput extends Input {
 
 class UrlInput extends Input {
     constructor() {
-        super();
+        super("New Url", "customInput_url", "", "new_url");
         this.placeholder = '';
         this.required = false;
     }
@@ -850,7 +859,7 @@ class UrlInput extends Input {
 
 class ImageInput extends Input {
     constructor() {
-        super();
+        super("New Image", "customInput_image", "", "new_image");
         this.required = false;
     }
 
@@ -882,7 +891,7 @@ class ImageInput extends Input {
 
 class HiddenInput extends Input {
     constructor() {
-        super();
+        super("New Hidden Value", "customInput_hidden", "", "new_hidden_value");
         this.value = '';
     }
     
