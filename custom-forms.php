@@ -25,13 +25,15 @@ function register_form_post_type() {
             'editor',
             'author',
         ),
-        'show_in_rest' => true,
+        'show_in_rest' => false,
         'show_in_menu' => true,
         'show_ui' => true
     )
     );
 }
 add_action('init', 'register_form_post_type');
+
+require_once plugin_dir_path(__FILE__) . 'includes/add.php';
 
 
 /**

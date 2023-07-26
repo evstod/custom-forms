@@ -5,6 +5,7 @@
  * - Submission Rules
  */
 function add_form_custom_metaboxes() {
+    echo "<h1>AAA</h1>";
     add_meta_box(
         'form_builder',
         'Form Builder',
@@ -18,6 +19,8 @@ function add_form_custom_metaboxes() {
         'form'
     );
 }
+
+add_action('add_meta_boxes', 'add_form_custom_metaboxes');
 
 
 /**

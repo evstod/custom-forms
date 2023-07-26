@@ -11,7 +11,7 @@ const formPreview = document.getElementById("form-preview");
 function handleInputSelectClick(event) {
     const value = event.target.value;
     console.log(`Button "${value}" was pressed.`);
-    
+
     //Check for form inputs that are not "input" element types
 
     var inputObj;
