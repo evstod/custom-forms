@@ -63,7 +63,7 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'settings_link');
  * Enqueue stylesheets and scripts to admin panel
  */
 function enqueue_admin() {
-    wp_enqueue_style('custom-forms_style', plugins_url('/assets/css/admin.css'));
+    wp_enqueue_style('custom-forms_style', plugin_dir_url(__FILE__) . '/assets/css/admin.css');
 }
 add_action('admin_enqueue_scripts', 'enqueue_admin');
 
@@ -71,7 +71,7 @@ add_action('admin_enqueue_scripts', 'enqueue_admin');
  * Enaqueue stylesheets and scripts to front end
  */
 function enqueue() {
-    wp_enqueue_style('custom-forms_style', plugins_url('/assets/css/main.css'));
+    wp_enqueue_style('custom-forms_style', plugin_dir_url(__FILE__) . '/assets/css/main.css');
 }
 add_action('wp_enqueue_scripts', 'enqueue');
 
