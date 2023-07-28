@@ -63,23 +63,23 @@ function handleInputSelectClick(event) {
             inputObj = new EmailInput();
             break;
         case "phone":
-            inputObj = new HtmlInputs.PhoneInput();
+            inputObj = new PhoneInput();
             break;
         case "file":
-            inputObj = new HtmlInputs.FileInput();
+            inputObj = new FileInput();
             break;
         case "url":
-            inputObj = new HtmlInputs.UrlInput();
+            inputObj = new UrlInput();
             break;
         case "image":
-            inputObj = new HtmlInputs.ImageInput();
+            inputObj = new ImageInput();
             break;
         case "hidden":
-            inputObj = new HtmlInputs.HiddenInput();
+            inputObj = new HiddenInput();
             break;
         default:
-            console.log("Value get error");
-            break;
+            console.error("Target Value does not coorelate to any input");
+            return;
     }
     console.log(inputObj);
 }
