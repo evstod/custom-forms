@@ -5,12 +5,12 @@ class Input {
         this.userDefinedClasses = '';
         this.name = '';
     }
-    constructor(label, primaryClass, userDefinedClasses, name) {
-        this.label = '';
-        this.primaryClass = '';
-        this.userDefinedClasses = '';
-        this.name = '';
-    }
+    // constructor(label, primaryClass, userDefinedClasses, name) {
+    //     this.label = '';
+    //     this.primaryClass = '';
+    //     this.userDefinedClasses = '';
+    //     this.name = '';
+    // }
 
     render() {}
     renderTemplate() {}

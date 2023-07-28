@@ -1,6 +1,6 @@
 //Get all the form input select buttons
 //Each button has a value representing the input type
-const buttons = document.getElementById("input-select-button-group").querySelectorAll('*');
+const buttons = document.getElementById("input-select-button-group").querySelectorAll('button');
 
 //Get Form Preview Container
 //This is where representations of the form inputs added will go
@@ -9,7 +9,7 @@ const formPreview = document.getElementById("form-preview");
 
 //Function to handle input select button click
 function handleInputSelectClick(event) {
-    const value = event.target.value;
+    const value = event.currentTarget.value;
     console.log(`Button "${value}" was pressed.`);
 
     //Check for form inputs that are not "input" element types
@@ -63,21 +63,25 @@ function handleInputSelectClick(event) {
             inputObj = new EmailInput();
             break;
         case "phone":
-            inputObj = new PhoneInput();
+            inputObj = new HtmlInputs.PhoneInput();
             break;
         case "file":
-            inputObj = new FileInput();
+            inputObj = new HtmlInputs.FileInput();
             break;
         case "url":
-            inputObj = new UrlInput();
+            inputObj = new HtmlInputs.UrlInput();
             break;
         case "image":
-            inputObj = new ImageInput();
+            inputObj = new HtmlInputs.ImageInput();
             break;
         case "hidden":
-            inputObj = new HiddenInput();
+            inputObj = new HtmlInputs.HiddenInput();
+            break;
+        default:
+            console.log("Value get error");
             break;
     }
+    console.log(inputObj);
 }
 
 //Add a click event listener to each button
