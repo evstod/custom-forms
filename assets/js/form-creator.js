@@ -2,6 +2,8 @@
 //Each button has a value representing the input type
 const buttons = document.getElementById("input-select-button-group").querySelectorAll('button');
 
+var inputs = [];
+
 //Get Form Preview Container
 //This is where representations of the form inputs added will go
 const formPreview = document.getElementById("form-preview");
@@ -82,9 +84,22 @@ function handleInputSelectClick(event) {
             return;
     }
     console.log(inputObj);
+
+    inputs.push(inputObj);
+
+    renderPreview();
+
 }
 
 //Add a click event listener to each button
 buttons.forEach((button) => {
     button.addEventListener("click", handleInputSelectClick);
 });
+
+function renderPreview() {
+    formPreview.innerHTML = "";
+
+    inputs.forEach(input => {
+        formPreview.innerHTML += input.renderTemplate();
+    });
+}
