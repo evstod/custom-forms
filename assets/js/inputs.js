@@ -46,7 +46,7 @@ class ButtonInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Value</label>
@@ -96,7 +96,7 @@ class CheckboxGroupInput extends Input {
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <div class="${this.primaryClass + '-group'}">
@@ -128,7 +128,7 @@ class CheckboxInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Value</label>
@@ -176,7 +176,7 @@ class RadioGroupInput extends Input {
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <div class="${this.primaryClass + '-group'}">
@@ -208,7 +208,7 @@ class RadioInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-value">Value</label>
         <input type="text" name="form-option-value" />
         <label for="form-option-required">Is a Required Field?</label>
@@ -258,7 +258,7 @@ class SelectGroupInput extends Input {
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <div class="${this.primaryClass + '-group'}">
@@ -288,7 +288,7 @@ class SelectInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Value</label>
@@ -326,7 +326,7 @@ class TextInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Maxlength</label>
@@ -372,7 +372,7 @@ class TextAreaInput extends Input {
     }
         
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-rows">Rows</label>
@@ -421,7 +421,7 @@ class NumberInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -468,7 +468,7 @@ class RangeInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -510,7 +510,7 @@ class ColorInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-required">Is a Required Field?</label>
@@ -545,7 +545,7 @@ class DateInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -586,7 +586,7 @@ class DateTimeLocalInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -625,7 +625,7 @@ class MonthInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
@@ -660,7 +660,7 @@ class WeekInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
@@ -697,7 +697,7 @@ class TimeInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -736,7 +736,7 @@ class EmailInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
@@ -771,7 +771,7 @@ class PhoneInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
@@ -807,7 +807,7 @@ class FileInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-accept">Accept</label>
@@ -846,7 +846,7 @@ class UrlInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
@@ -881,7 +881,7 @@ class ImageInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
@@ -913,7 +913,7 @@ class HiddenInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions + `
+        return super.renderOptions() + `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         `
