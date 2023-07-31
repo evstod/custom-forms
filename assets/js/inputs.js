@@ -785,7 +785,7 @@ class PhoneInput extends Input {
 class FileInput extends Input {
     constructor() {
         super("New File", "customInput_file", "", "new_file");
-        this.accept = '';
+        this.accept = "";
         this.mutliple = false;
         this.required = false;
     }
@@ -861,19 +861,22 @@ class ImageInput extends Input {
     constructor() {
         super("New Image", "customInput_image", "", "new_image");
         this.required = false;
+        this.accept = "image/*";
     }
 
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="image" 
-                id="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} />
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file" 
+                id="${this.name}" name="${this.name}" accept="${this.accept}"
+                ${this.required ? 'required' : ''} />
         `
     }
 
     renderTemplate() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="image" 
-                id="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} />
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file" 
+                id="${this.name}" name="${this.name}" accept="${this.accept}"
+                ${this.required ? 'required' : ''} />
         `
     }
 
