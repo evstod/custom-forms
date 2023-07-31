@@ -16,8 +16,10 @@ function handleInputSelectClick(event) {
 
     //Check for form inputs that are not "input" element types
 
+    //The input object to be put in the input list rendered
     var inputObj;
 
+    //Set the input object based on the button value
     switch (value) {
         case "button":
             inputObj = new ButtonInput();
@@ -96,6 +98,10 @@ buttons.forEach((button) => {
     button.addEventListener("click", handleInputSelectClick);
 });
 
+
+/**
+ * Render each input by renderTemplate function
+ */
 function renderPreview() {
     formPreview.innerHTML = "";
 
