@@ -2,11 +2,20 @@
 //Each button has a value representing the input type
 const buttons = document.getElementById("input-select-button-group").querySelectorAll('button');
 
+//The list of input objects in order of first placed to last placed
 var inputs = [];
+
+//The index of the input template that was last clicked
+//Used to show the options panel for the correct input
+var lastClickedIndex;
 
 //Get Form Preview Container
 //This is where representations of the form inputs added will go
 const formPreview = document.getElementById("form-preview");
+
+//Get Input Editor Container
+//This is where all attributes and content of an input object can be modified
+const inputEditor = document.getElementById("input-editor");
 
 
 //Function to handle input select button click
@@ -87,10 +96,11 @@ function handleInputSelectClick(event) {
     }
     console.log(inputObj);
 
-    inputs.push(inputObj);
+    //Append input object to array and get its index
+    lastClickedIndex = inputs.push(inputObj) - 1;
 
+    //Render the inputs
     renderPreview();
-
 }
 
 //Add a click event listener to each button
@@ -105,7 +115,19 @@ buttons.forEach((button) => {
 function renderPreview() {
     formPreview.innerHTML = "";
 
+    var inputIndex = 0;
     inputs.forEach(input => {
-        formPreview.innerHTML += input.renderTemplate();
+        formPreview.innerHTML += input.renderTemplate(inputIndex++);
     });
+
+    renderOptionsPane(lastClickedIndex);
+}
+
+/**
+ * Render the option inputs available for the specified input
+ */
+
+function renderOptionsPane(inputIndex) {
+    console.log(inputs[inputIndex].renderOptions());
+    inputEditor.innerHTML = inputs[inputIndex].renderOptions();
 }

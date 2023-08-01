@@ -5,22 +5,17 @@ class Input {
         this.userDefinedClasses = '';
         this.name = '';
     }
-    // constructor(label, primaryClass, userDefinedClasses, name) {
-    //     this.label = '';
-    //     this.primaryClass = '';
-    //     this.userDefinedClasses = '';
-    //     this.name = '';
-    // }
 
     render() {}
-    renderTemplate() {}
+    renderTemplate(index) {return '';}
     renderOptions() {
+        var a;
         return `
         <label for="form-option-label">Label</label>
         <input type="text" name="form-option-label" />
         <label for="form-option-userDefinedClasses">Additional Classes</label>
         <input type="text" name="form-option-userDefinedClasses" />
-        `
+        `;
     }
 }
 
@@ -38,11 +33,11 @@ class ButtonInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-        <input type="button" class="${this.primaryClass + ' ' + this.userDefinedClasses}" 
+        <input type="button" class="${this.primaryClass + ' ' + this.userDefinedClasses} id="template_${index}" 
             name="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} disabled/>
-        `
+        `;
     }
 
     renderOptions() {
@@ -53,7 +48,7 @@ class ButtonInput extends Input {
         <input type="text" name="form-option-value" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
     }
 }
 
@@ -71,20 +66,20 @@ class CheckboxGroupInput extends Input {
             optionsHtml += option.render();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}">
+        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
         `;
     }
     
-    renderTemplate() {
+    renderTemplate(index) {
         var optionsHtml = ``;
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}">
+        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
@@ -158,13 +153,13 @@ class RadioGroupInput extends Input {
         `;
     }
         
-    renderTemplate() {
+    renderTemplate(index) {
         var optionsHtml = ``;
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}">
+        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
@@ -233,22 +228,26 @@ class SelectGroupInput extends Input {
             optionsHtml += option.render();
         });
         return  `
-        <p>${this.label}</p>
-        <select class="${this.primaryClass + ' ' + this.userDefinedClasses}" id name="${this.name} disabled">
-            ${optionsHtml}
+        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}"  id="template_${index}" >
+            <p>${this.label}</p>
+            <select id="${this.name}" name="${this.name}" disabled">
+                ${optionsHtml}
+            </select>
         </div>
         `;
     }
             
-    renderTemplate() {
+    renderTemplate(index) {
         var optionsHtml = ``;
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
         return  `
-        <p>${this.label}</p>
-        <select class="${this.primaryClass + ' ' + this.userDefinedClasses}" id name="${this.name}">
-            ${optionsHtml}
+        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}"  id="template_${index}" >
+            <p>${this.label}</p>
+            <selectname="${this.name}">
+                ${optionsHtml}
+            </select>
         </div>
         `;
     }
@@ -316,10 +315,10 @@ class TextInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="text" 
-                id="${this.name}" name="${this.name}" value="${this.value}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="text"  id="template_${index}" 
+                 name="${this.name}" value="${this.value}" 
                 maxlength="${this.maxlength}" size="${this.size}" 
                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
         `
@@ -362,9 +361,9 @@ class TextAreaInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <textarea class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}" 
+            <textarea class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}"  id="template_${index}" 
                 name="${this.name}" rows="${this.rows}" cols="${this.cols}" wrap="${this.wrap}" 
                 ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''}
                  placeholder="${this.placeholder}" disabled>${this.value}</textarea>
@@ -411,10 +410,10 @@ class NumberInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="number" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="number"  id="template_${index}" 
+                 name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 step="${this.step}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} disabled />
         `
@@ -458,10 +457,10 @@ class RangeInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="range" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="range"  id="template_${index}" 
+                 name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 step="${this.step}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} disabled />
         `
@@ -501,10 +500,10 @@ class ColorInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="color" 
-                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="color"  id="template_${index}"
+            name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `
     }
@@ -536,10 +535,10 @@ class DateInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="date" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="date"  id="template_${index}" 
+                name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
         `
     }
@@ -577,10 +576,10 @@ class DateTimeLocalInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="datetime-local" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="datetime-local"  id="template_${index}" 
+                name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
         `
     }
@@ -616,9 +615,9 @@ class MonthInput extends Input {
         `
     }
     
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="month" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="month"  id="template_${index}" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} disabled />
         `
@@ -651,10 +650,10 @@ class WeekInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="week" 
-                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="week"  id="template_${index}" 
+                 name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} disabled />
         `
     }
@@ -688,10 +687,10 @@ class TimeInput extends Input {
         `
     }
     
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="time" 
-                id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="time"  id="template_${index}" 
+                 name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
         `
     }
@@ -727,10 +726,10 @@ class EmailInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="email" 
-                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="email"  id="template_${index}" 
+                 name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} disabled />
         `
     }
@@ -762,10 +761,10 @@ class PhoneInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="phone" 
-                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="phone"  id="template_${index}" 
+                 name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `
     }
@@ -798,10 +797,10 @@ class FileInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file" 
-                id="${this.name}" name="${this.name}" accept="${this.accept}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file"  id="template_${index}" 
+                 name="${this.name}" accept="${this.accept}" 
                 multiple="${this.mutliple}" ${this.required ? 'required' : ''} disabled />
         `
     }
@@ -837,10 +836,10 @@ class UrlInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="url" 
-                id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="url"  id="template_${index}" 
+                 name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `
     }
@@ -870,10 +869,10 @@ class ImageInput extends Input {
         `
     }
 
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="image" 
-                id="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} />
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="image"  id="template_${index}" 
+                 name="${this.name}" ${this.required ? 'required' : ''} />
         `
     }
 
@@ -902,10 +901,10 @@ class HiddenInput extends Input {
         `
     }
     
-    renderTemplate() {
+    renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="hidden" 
-                id="${this.name}" name="${this.name}" value="${this.value}" />
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="hidden"  id="template_${index}" 
+                 name="${this.name}" value="${this.value}" />
         `
     }
 
