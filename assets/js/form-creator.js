@@ -117,7 +117,7 @@ function renderPreview() {
 
     var inputIndex = 0;
     inputs.forEach(input => {
-        formPreview.innerHTML += input.renderTemplate(inputIndex++);
+        formPreview.innerHTML += input.renderTemplate(inputIndex++) + "</br>";
     });
 
     renderOptionsPane(lastClickedIndex);
