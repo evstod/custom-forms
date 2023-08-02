@@ -873,7 +873,7 @@ class ImageInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="image"  id="template_${index}" 
+            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file"   id="template_${index}" 
                  name="${this.name}" ${this.required ? 'required' : ''} />
         `
     }
