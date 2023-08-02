@@ -219,6 +219,7 @@ class SelectGroupInput extends Input {
         this.size = '';
         this.multiple = false;
         this.required = false;
+        this.options = [];
     }
 
     
