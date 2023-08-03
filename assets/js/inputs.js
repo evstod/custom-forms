@@ -29,14 +29,14 @@ class ButtonInput extends Input {
     render() {
         return `
         <input type="button" class="${this.primaryClass + ' ' + this.userDefinedClasses}" 
-            name="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} />
+            name="${this.name}" value="${this.value}" ${this.required ? 'required' : ''} />
         `
     }
 
     renderTemplate(index) {
         return `
         <input type="button" class="${this.primaryClass + ' ' + this.userDefinedClasses} id="template_${index}" 
-            name="${this.name}" name="${this.name}" ${this.required ? 'required' : ''} disabled/>
+            name="${this.name}" value="${this.value}" ${this.required ? 'required' : ''} disabled/>
         `;
     }
 
@@ -246,7 +246,7 @@ class SelectGroupInput extends Input {
         return  `
         <div class="${this.primaryClass + ' ' + this.userDefinedClasses}"  id="template_${index}" >
             <p>${this.label}</p>
-            <selectname="${this.name}">
+            <select name="${this.name}">
                 ${optionsHtml}
             </select>
         </div>
