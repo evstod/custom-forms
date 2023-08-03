@@ -135,6 +135,8 @@ function renderOptionsPane(inputIndex) {
 
     //For every input rendered in the input editor
     inputEditor.querySelectorAll('input').forEach((option) => {
+        if (option.getAttribute("type") === "button")
+            continue;
         //add a listener for value change to input
         option.addEventListener("change", handleOptionInputChange);
         //set content of input to the value of the matching attribute
