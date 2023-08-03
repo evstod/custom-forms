@@ -126,8 +126,30 @@ function renderPreview() {
 /**
  * Render the option inputs available for the specified input
  */
-
 function renderOptionsPane(inputIndex) {
-    console.log(inputs[inputIndex].renderOptions());
+    var input = inputs[inputIndex];
+
+    //Set contents of inputEditor to an input for every input attribute
     inputEditor.innerHTML = inputs[inputIndex].renderOptions();
+
+    //For every input rendered in the input editor
+    inputEditor.querySelectorAll('input').forEach((option) => {
+        //add a listener for value change to input
+        option.addEventListener("change", handleOptionInputChange);
+        //set content of input to the value of the matching attribute
+        option.value = input[option.name.replace('form-option-', '')];
+    });
+}
+
+/**
+ * Set attribute of an object to new value when matching input is changed
+ */
+function handleOptionInputChange() {
+    var input = inputs[lastClickedIndex];
+    
+    var editedAttributeName = event.target.name.replace('form-option-', '');
+    
+    input[editedAttributeName] = event.target.value;
+
+    renderPreview();
 }
