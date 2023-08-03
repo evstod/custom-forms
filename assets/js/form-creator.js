@@ -117,6 +117,7 @@ function renderPreview() {
 
     var inputIndex = 0;
     inputs.forEach(input => {
+        input.id = inputIndex;
         formPreview.innerHTML += input.renderTemplate(inputIndex++) + "</br>";
     });
 
@@ -130,7 +131,7 @@ function renderOptionsPane(inputIndex) {
     var input = inputs[inputIndex];
 
     //Set contents of inputEditor to an input for every input attribute
-    inputEditor.innerHTML = inputs[inputIndex].renderOptions();
+    inputEditor.replaceChildren(inputs[inputIndex].renderOptions());
 
     //For every input rendered in the input editor
     inputEditor.querySelectorAll('input').forEach((option) => {

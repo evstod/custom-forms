@@ -9,13 +9,21 @@ class Input {
     render() {}
     renderTemplate(index) {return '';}
     renderOptions() {
-        var a;
-        return `
-        <label for="form-option-label">Label</label>
-        <input type="text" name="form-option-label" />
-        <label for="form-option-userDefinedClasses">Additional Classes</label>
-        <input type="text" name="form-option-userDefinedClasses" />
-        `;
+        const optionsPane = document.createElement("div");
+
+        optionsPane.innerHTML = `<label for="form-option-label">Label</label>`
+        const labelInput = document.createElement("input");
+        labelInput.setAttribute("type", "text")
+        labelInput.setAttribute("name", "form-option-label")
+        optionsPane.appendChild(labelInput);
+
+        optionsPane.innerHTML += `<label for="form-option-userDefinedClasses">Additional Classes</label>`
+        const userDefinedClassesInput = document.createElement("input");
+        userDefinedClassesInput.setAttribute("type", "text")
+        userDefinedClassesInput.setAttribute("name", "form-option-userDefinedClasses")
+        optionsPane.appendChild(userDefinedClassesInput);
+
+        return optionsPane;
     }
 }
 
@@ -41,7 +49,8 @@ class ButtonInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const pane = super.renderOptions();
+        pane.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Value</label>
@@ -49,6 +58,7 @@ class ButtonInput extends Input {
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
         `;
+        return pane;
     }
 }
 
@@ -91,13 +101,23 @@ class CheckboxGroupInput extends Input {
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
-        return super.renderOptions() + `
+        const pane = super.renderOptions();
+        pane.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
-        <div class="${this.primaryClass + '-group'}">
-            ${optionsHtml}
-        </div>
         `;
+        const addCheckbox = document.createElement("input")
+        addCheckbox.setAttribute("form-element-id", this.id)
+        addCheckbox.setAttribute("type", "button")
+        addCheckbox.setAttribute("value", "Add Checkbox")
+        addCheckbox.addEventListener("click", () => this.newInput(this.id));
+        pane.appendChild(addCheckbox)
+        return pane;
+    }
+
+    newInput(id) {
+        inputs[id].options.push(new CheckboxInput())
+        renderPreview();
     }
 }
 
@@ -171,13 +191,23 @@ class RadioGroupInput extends Input {
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
-        return super.renderOptions() + `
+        const pane = super.renderOptions();
+        pane.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
-        <div class="${this.primaryClass + '-group'}">
-            ${optionsHtml}
-        </div>
         `;
+        const addRadio = document.createElement("input")
+        addRadio.setAttribute("form-element-id", this.id)
+        addRadio.setAttribute("type", "button")
+        addRadio.setAttribute("value", "Add Option")
+        addRadio.addEventListener("click", () => this.newInput(this.id));
+        pane.appendChild(addRadio)
+        return pane;
+    }
+
+    newInput(id) {
+        inputs[id].options.push(new RadioInput())
+        renderPreview();
     }
 }
 
@@ -258,13 +288,23 @@ class SelectGroupInput extends Input {
         this.options.forEach(option => {
             optionsHtml += option.renderTemplate();
         });
-        return super.renderOptions() + `
+        const pane = super.renderOptions();
+        pane.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
-        <div class="${this.primaryClass + '-group'}">
-            ${optionsHtml}
-        </div>
         `;
+        const addSelect = document.createElement("input")
+        addSelect.setAttribute("form-element-id", this.id)
+        addSelect.setAttribute("type", "button")
+        addSelect.setAttribute("value", "Add Select")
+        addSelect.addEventListener("click", () => this.newInput(this.id));
+        pane.appendChild(addSelect)
+        return pane;
+    }
+
+    newInput(id) {
+        inputs[id].options.push(new SelectInput())
+        renderPreview();
     }
 }
 
