@@ -220,13 +220,19 @@ class RadioGroupInput extends Input {
     renderOptions() {
         var optionsHtml = ``;
         this.options.forEach(option => {
+            optionsHtml += `<div form-element-group-id="${this.id}" form-element-id="${option.id}">`;
             optionsHtml += option.renderOptions().innerHTML;
+            optionsHtml += "</div>";
+            optionsHtml += "<br>";
         });
         const pane = super.renderOptions();
         pane.innerHTML += `
-        <label for="form-option-name">Name</label>
-        <input type="text" name="form-option-name" />
-        <div class="${this.primaryClass + '-group'}">
+        <label for="form-option-name">
+            Name
+            <input type="text" name="form-option-name" />
+        </label>
+        <hr>
+        <div class="${this.name + '-group'}">
             ${optionsHtml}
         </div>
         `;
@@ -240,7 +246,9 @@ class RadioGroupInput extends Input {
     }
 
     newInput(id) {
-        inputs[id].options.push(new RadioInput())
+        const inputObject = new RadioInput();
+        inputObject.parentId = id;
+        inputObject.id = inputs[id].options.push(inputObject) - 1;
         renderPreview();
     }
 }
@@ -248,31 +256,39 @@ class RadioGroupInput extends Input {
 //Represents individual radio button of a group and name
 class RadioInput extends Input {
     constructor() {
-        super("New Radio Button", "", "", "new_radio_button");
+        super("New Radio Button", "sub-input", "", "new_radio_button");
         this.value = '';
     }
 
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="radio" 
-                id="${this.name}" name="${this.name}" value="${this.value}" />
+            <label>
+            ${this.label}
+                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" />
+            </label>
         `
     }
         
     renderTemplate() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="radio" 
-                id="${this.name}" name="${this.name}" value="${this.value}" disabled />
+            <label>
+            ${this.label}
+                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" disabled />
+            </label>
         `
     }
 
     renderOptions() {
         const options = super.renderOptions();
         options.innerHTML += `
-        <label for="form-option-value">Value</label>
-        <input type="text" name="form-option-value" />
-        <label for="form-option-required">Is a Required Field?</label>
-        <input type="checkbox" name="form-option-required" />
+        <label>
+            Name
+            <input class="sub-input" type="text" name="form-option-name" />
+        </label>
+        <label for="form-option-value">
+            Value
+            <input class="sub-input" type="text" name="form-option-value" />
+        </label>
         `;
         return options;
     }
@@ -282,7 +298,7 @@ class RadioInput extends Input {
 class SelectGroupInput extends Input {
     constructor() {
         super("New Select Group", "customInput_select", "", "new_select_group");
-        this.size = '';
+        this.size = 5;
         this.multiple = false;
         this.required = false;
         this.options = [];
@@ -297,7 +313,7 @@ class SelectGroupInput extends Input {
         return  `
         <div class="${this.primaryClass + ' ' + this.userDefinedClasses}"  id="template_${index}" >
             <p>${this.label}</p>
-            <select id="${this.name}" name="${this.name}" disabled">
+            <select id="${this.name}" name="${this.name}" >
                 ${optionsHtml}
             </select>
         </div>
@@ -312,7 +328,7 @@ class SelectGroupInput extends Input {
         return  `
         <div class="${this.primaryClass + ' ' + this.userDefinedClasses}"  id="template_${index}" >
             <p>${this.label}</p>
-            <select name="${this.name}">
+            <select id="${this.name}" name="${this.name}" >
                 ${optionsHtml}
             </select>
         </div>
@@ -322,14 +338,18 @@ class SelectGroupInput extends Input {
     renderOptions() {
         var optionsHtml = ``;
         this.options.forEach(option => {
+            optionsHtml += `<div form-element-group-id="${this.id}" form-element-id="${option.id}">`;
             optionsHtml += option.renderOptions().innerHTML;
+            optionsHtml += "</div>";
             optionsHtml += "<br>";
         });
         const pane = super.renderOptions();
         pane.innerHTML += `
-        <label for="form-option-name">Name</label>
-        <input type="text" name="form-option-name" />
-        <br>
+        <label for="form-option-name">
+            Name
+            <input type="text" name="form-option-name" />
+        </label>
+        <hr>
         <div class="${this.name + '-group'}">
             ${optionsHtml}
         </div>
@@ -344,7 +364,9 @@ class SelectGroupInput extends Input {
     }
 
     newInput(id) {
-        inputs[id].options.push(new SelectInput())
+        const inputObject = new SelectInput();
+        inputObject.parentId = id;
+        inputObject.id = inputs[id].options.push(inputObject) - 1;
         renderPreview();
     }
 }
@@ -352,7 +374,7 @@ class SelectGroupInput extends Input {
 //Represents individual select option of a group
 class SelectInput extends Input {
     constructor() {
-        super("New Option", "", "", "new_option");
+        super("New Option", "sub-input", "", "new_option");
         this.value = '';
     }
 
@@ -369,14 +391,19 @@ class SelectInput extends Input {
     }
 
     renderOptions() {
-        const options = super.renderOptions();
-        options.innerHTML += `
-        <label for="form-option-name">Name</label>
-        <input type="text" name="form-option-name" />
-        <label for="form-option-value">Value</label>
-        <input type="text" name="form-option-value" />
+        // const options = super.renderOptions();
+        const optionsPane = document.createElement("div");
+        optionsPane.innerHTML += `
+        <label>
+            Label
+            <input class="sub-input" type="text" name="form-option-label" />
+        </label>
+        <label for="form-option-value">
+            Value
+            <input class="sub-input" type="text" name="form-option-value" />
+        </label>
         `;
-        return options;
+        return optionsPane;
     }
 }
 
@@ -411,16 +438,26 @@ class TextInput extends Input {
     renderOptions() {
         const options = super.renderOptions();
         options.innerHTML += `
-        <label for="form-option-name">Name</label>
-        <input type="text" name="form-option-name" />
-        <label for="form-option-value">Maxlength</label>
-        <input type="maxlength" name="form-option-maxlength" />
-        <label for="form-option-size">Size</label>
-        <input type="number" name="form-option-size" />
-        <label for="form-option-placeholder">Placeholder</label>
-        <input type="text" name="form-option-placeholder" />
-        <label for="form-option-required">Is a Required Field?</label>
-        <input type="checkbox" name="form-option-required" />
+        <label>
+            Name
+            <input type="text" name="form-option-name" />
+        </label>
+        <label>
+            Maxlength
+            <input type="maxlength" name="form-option-maxlength" />
+        </label>
+        <label>
+            Size
+            <input type="number" name="form-option-size" />
+        </label>
+        <label>
+            Placeholder
+            <input type="text" name="form-option-placeholder" />
+        </label>
+        <label>
+            Is a Required Field?
+            <input type="checkbox" name="form-option-required" />
+        </label>
         `;
         return options;
     }
