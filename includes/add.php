@@ -59,6 +59,20 @@ function form_builder_html($post) {
     </div>
 
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/button.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/checkbox.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/color.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/date.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/dateTimeLocal.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/email.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/file.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/hidden.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/image.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/number.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/phone.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/radio.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/text.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/url.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/form-creator.js' ?>"></script>
     <?php
 }
