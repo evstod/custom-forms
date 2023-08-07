@@ -134,25 +134,33 @@ function renderOptionsPane(inputIndex) {
     inputEditor.replaceChildren(inputs[inputIndex].renderOptions());
 
     //For every input rendered in the input editor
-    inputEditor.querySelectorAll('input').forEach((option) => {
-        if (option.getAttribute("type") === "button")
-            continue;
+    inputEditor.querySelectorAll('input[type]:not(.sub-input):not([type="button"])').forEach((option) => {
         //add a listener for value change to input
         option.addEventListener("change", handleOptionInputChange);
         //set content of input to the value of the matching attribute
         option.value = input[option.name.replace('form-option-', '')];
     });
+
+    inputEditor.querySelectorAll("input.sub-input").forEach((option) => {
+        option.addEventListener("change", handleSubOptionInputChange);
+        option.value = input.options[option.parentElement.parentElement.getAttribute("form-element-id")][option.name.replace('form-option-', '')];
+    })
+}
+
+function handleSubOptionInputChange(event) {
+    var input = inputs[event.target.parentElement.parentElement.getAttribute("form-element-group-id")].options[event.target.parentElement.parentElement.getAttribute("form-element-id")];
+    console.log(input);
+    var editedAttributeName = event.target.name.replace('form-option-', '');
+    input[editedAttributeName] = event.target.value;
+    renderPreview();
 }
 
 /**
  * Set attribute of an object to new value when matching input is changed
  */
-function handleOptionInputChange() {
+function handleOptionInputChange(event) {
     var input = inputs[lastClickedIndex];
-    
     var editedAttributeName = event.target.name.replace('form-option-', '');
-    
     input[editedAttributeName] = event.target.value;
-
     renderPreview();
 }

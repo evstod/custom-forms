@@ -1,9 +1,9 @@
 class Input {
-    constructor() {
-        this.label = '';
-        this.primaryClass = '';
-        this.userDefinedClasses = '';
-        this.name = '';
+    constructor(label, primaryClass, userDefinedClasses, name) {
+        this.label = label;
+        this.primaryClass = primaryClass;
+        this.userDefinedClasses = userDefinedClasses;
+        this.name = name;
     }
 
     render() {}
@@ -11,17 +11,27 @@ class Input {
     renderOptions() {
         const optionsPane = document.createElement("div");
 
-        optionsPane.innerHTML = `<label for="form-option-label">Label</label>`
+        const labelLabel = document.createElement("label");
+        labelLabel.innerHTML += "Label";
+
         const labelInput = document.createElement("input");
         labelInput.setAttribute("type", "text")
         labelInput.setAttribute("name", "form-option-label")
-        optionsPane.appendChild(labelInput);
+        labelInput.className += this.primaryClass;
 
-        optionsPane.innerHTML += `<label for="form-option-userDefinedClasses">Additional Classes</label>`
+        labelLabel.appendChild(labelInput);
+        optionsPane.appendChild(labelLabel);
+
+        const userDefinedClassesLabel = document.createElement("label");
+        userDefinedClassesLabel.innerHTML += "Additional Classes";
+        
         const userDefinedClassesInput = document.createElement("input");
         userDefinedClassesInput.setAttribute("type", "text")
         userDefinedClassesInput.setAttribute("name", "form-option-userDefinedClasses")
-        optionsPane.appendChild(userDefinedClassesInput);
+        userDefinedClassesInput.className += this.primaryClass;
+
+        userDefinedClassesLabel.appendChild(userDefinedClassesInput);
+        optionsPane.appendChild(userDefinedClassesLabel);
 
         return optionsPane;
     }
@@ -99,12 +109,21 @@ class CheckboxGroupInput extends Input {
     renderOptions() {
         var optionsHtml = ``;
         this.options.forEach(option => {
-            optionsHtml += option.renderTemplate();
+            optionsHtml += `<div form-element-group-id="${this.id}" form-element-id="${option.id}">`;
+            optionsHtml += option.renderOptions().innerHTML;
+            optionsHtml += "</div>";
+            optionsHtml += "<br>";
         });
         const pane = super.renderOptions();
         pane.innerHTML += `
-        <label for="form-option-name">Name</label>
-        <input type="text" name="form-option-name" />
+        <label for="form-option-name">
+            Name
+            <input type="text" name="form-option-name" />
+        </label>
+        <hr>
+        <div class="${this.name + '-group'}">
+            ${optionsHtml}
+        </div>
         `;
         const addCheckbox = document.createElement("input")
         addCheckbox.setAttribute("form-element-id", this.id)
@@ -116,7 +135,9 @@ class CheckboxGroupInput extends Input {
     }
 
     newInput(id) {
-        inputs[id].options.push(new CheckboxInput())
+        const inputObject = new CheckboxInput();
+        inputObject.parentId = id;
+        inputObject.id = inputs[id].options.push(inputObject) - 1;
         renderPreview();
     }
 }
@@ -124,31 +145,41 @@ class CheckboxGroupInput extends Input {
 //Represents individual checkbox of a group
 class CheckboxInput extends Input {
     constructor() {
-        super("New Checkbox", "", "", "new_checkbox");
+        super("New Checkbox", "sub-input", "", "new_checkbox");
         this.value = '';
     }
 
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="checkbox" 
-                id="${this.name}" name="${this.name}" value="${this.value}" />
+            <label>
+            ${this.label}
+                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" />
+            </label>
         `
     }
     
     renderTemplate() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="checkbox" 
-                id="${this.name}" name="${this.name}" value="${this.value}" disabled />
+            <label>
+            ${this.label}
+                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" disabled />
+            </label>
         `
     }
 
     renderOptions() {
-        return super.renderOptions() + `
-        <label for="form-option-name">Name</label>
-        <input type="text" name="form-option-name" />
-        <label for="form-option-value">Value</label>
-        <input type="text" name="form-option-value" />
-        `
+        const options = super.renderOptions();
+        options.innerHTML += `
+        <label>
+            Name
+            <input class="sub-input" type="text" name="form-option-name" />
+        </label>
+        <label for="form-option-value">
+            Value
+            <input class="sub-input" type="text" name="form-option-value" />
+        </label>
+        `;
+        return options;
     }
 }
 
@@ -189,12 +220,15 @@ class RadioGroupInput extends Input {
     renderOptions() {
         var optionsHtml = ``;
         this.options.forEach(option => {
-            optionsHtml += option.renderTemplate();
+            optionsHtml += option.renderOptions().innerHTML;
         });
         const pane = super.renderOptions();
         pane.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
+        <div class="${this.primaryClass + '-group'}">
+            ${optionsHtml}
+        </div>
         `;
         const addRadio = document.createElement("input")
         addRadio.setAttribute("form-element-id", this.id)
@@ -233,12 +267,14 @@ class RadioInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-value">Value</label>
         <input type="text" name="form-option-value" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -286,12 +322,17 @@ class SelectGroupInput extends Input {
     renderOptions() {
         var optionsHtml = ``;
         this.options.forEach(option => {
-            optionsHtml += option.renderTemplate();
+            optionsHtml += option.renderOptions().innerHTML;
+            optionsHtml += "<br>";
         });
         const pane = super.renderOptions();
         pane.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
+        <br>
+        <div class="${this.name + '-group'}">
+            ${optionsHtml}
+        </div>
         `;
         const addSelect = document.createElement("input")
         addSelect.setAttribute("form-element-id", this.id)
@@ -328,12 +369,14 @@ class SelectInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Value</label>
         <input type="text" name="form-option-value" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -366,7 +409,8 @@ class TextInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-value">Maxlength</label>
@@ -377,7 +421,8 @@ class TextInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -412,7 +457,8 @@ class TextAreaInput extends Input {
     }
         
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-rows">Rows</label>
@@ -427,7 +473,8 @@ class TextAreaInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -461,7 +508,8 @@ class NumberInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -476,7 +524,8 @@ class NumberInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -508,7 +557,8 @@ class RangeInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -523,7 +573,8 @@ class RangeInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -550,12 +601,14 @@ class ColorInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -585,7 +638,8 @@ class DateInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -596,7 +650,8 @@ class DateInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -626,7 +681,8 @@ class DateTimeLocalInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -637,7 +693,8 @@ class DateTimeLocalInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -665,14 +722,16 @@ class MonthInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -700,14 +759,16 @@ class WeekInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -737,7 +798,8 @@ class TimeInput extends Input {
     }
     
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-min">Minimum</label>
@@ -748,7 +810,8 @@ class TimeInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -776,14 +839,16 @@ class EmailInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -811,14 +876,16 @@ class PhoneInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -847,7 +914,8 @@ class FileInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-accept">Accept</label>
@@ -858,7 +926,8 @@ class FileInput extends Input {
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -886,14 +955,16 @@ class UrlInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -920,14 +991,16 @@ class ImageInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
         <label for="form-option-placeholder">Placeholder</label>
         <input type="text" name="form-option-placeholder" />
         <label for="form-option-required">Is a Required Field?</label>
         <input type="checkbox" name="form-option-required" />
-        `
+        `;
+        return options;
     }
 }
 
@@ -952,9 +1025,11 @@ class HiddenInput extends Input {
     }
 
     renderOptions() {
-        return super.renderOptions() + `
+        const options = super.renderOptions();
+        options.innerHTML += `
         <label for="form-option-name">Name</label>
         <input type="text" name="form-option-name" />
-        `
+        `;
+        return options;
     }
 }
