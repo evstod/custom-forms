@@ -117,6 +117,7 @@ function renderPreview() {
 
     var inputIndex = 0;
     inputs.forEach(input => {
+        input.id = inputIndex;
         formPreview.innerHTML += input.renderTemplate(inputIndex++) + "</br>";
     });
 
@@ -130,26 +131,36 @@ function renderOptionsPane(inputIndex) {
     var input = inputs[inputIndex];
 
     //Set contents of inputEditor to an input for every input attribute
-    inputEditor.innerHTML = inputs[inputIndex].renderOptions();
+    inputEditor.replaceChildren(inputs[inputIndex].renderOptions());
 
     //For every input rendered in the input editor
-    inputEditor.querySelectorAll('input').forEach((option) => {
+    inputEditor.querySelectorAll('input[type]:not(.sub-input):not([type="button"])').forEach((option) => {
         //add a listener for value change to input
         option.addEventListener("change", handleOptionInputChange);
         //set content of input to the value of the matching attribute
         option.value = input[option.name.replace('form-option-', '')];
     });
+
+    inputEditor.querySelectorAll("input.sub-input").forEach((option) => {
+        option.addEventListener("change", handleSubOptionInputChange);
+        option.value = input.options[option.parentElement.parentElement.getAttribute("form-element-id")][option.name.replace('form-option-', '')];
+    })
+}
+
+function handleSubOptionInputChange(event) {
+    var input = inputs[event.target.parentElement.parentElement.getAttribute("form-element-group-id")].options[event.target.parentElement.parentElement.getAttribute("form-element-id")];
+    console.log(input);
+    var editedAttributeName = event.target.name.replace('form-option-', '');
+    input[editedAttributeName] = event.target.value;
+    renderPreview();
 }
 
 /**
  * Set attribute of an object to new value when matching input is changed
  */
-function handleOptionInputChange() {
+function handleOptionInputChange(event) {
     var input = inputs[lastClickedIndex];
-    
     var editedAttributeName = event.target.name.replace('form-option-', '');
-    
     input[editedAttributeName] = event.target.value;
-
     renderPreview();
 }
