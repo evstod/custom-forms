@@ -39,6 +39,7 @@
     padding-left: 12px;
 }
 
-#form-preview, .custom-form  {
-
+.postarea {
+    /* Hide the deafult post body box */
+    display: none;
 }
