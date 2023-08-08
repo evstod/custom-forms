@@ -76,4 +76,16 @@ function form_builder_html($post) {
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/form-creator.js' ?>"></script>
     <?php
 }
-?>
+
+
+function form_submission_rules_html($post) {
+    ?>
+    <div id="email-container">
+        <p><b>Note:</b> To include the submitted value of an input, represent the input using its name in curly brackets. Ex: {an_input_name}</p>
+
+    </div>
+    <button type="button" id="add-email">Add Email</button>
+
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/submission-rules.js' ?>"></script>
+    <?php
+}
