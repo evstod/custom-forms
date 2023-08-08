@@ -1,4 +1,8 @@
 <?php
+/**
+ * This handles requests relating to submitting/getting the data from the from creator on the add/edit pages
+ * This includes functions hooked to the save function for form post type
+ */
 
 /**
  * Save the form's html representation and list of inputs with the post metadata
