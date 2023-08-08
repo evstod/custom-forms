@@ -58,6 +58,9 @@ function form_builder_html($post) {
         </div>
     </div>
 
+    <input type="hidden" name="form_array">
+    <input type="hidden" name="form_html">
+
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/form-creator.js' ?>"></script>
     <?php
