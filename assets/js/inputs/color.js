@@ -2,6 +2,7 @@ class ColorInput extends Input {
     constructor() {
         super("New Color", "customInput_color", "", "new_color");
         this.required = false;
+        this.className = "ColorInput";
     }
 
     render() {

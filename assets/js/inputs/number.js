@@ -6,6 +6,7 @@ class NumberInput extends Input {
         this.step = '';
         this.placeholder = '';
         this.required = false;
+        this.className = "NumberInput";
     }
 
     

@@ -4,6 +4,7 @@ class RadioGroupInput extends Input {
         super("New Radio Button Group", "customInput_radio", "", "new_radio_button_group");
         //options contains Radio Inputs for every button input under the same group and name
         this.options = [];
+        this.className = "RadioGroupInput";
     }
 
     render() {
@@ -73,6 +74,7 @@ class RadioInput extends Input {
     constructor() {
         super("New Radio Button", "sub-input", "", "new_radio_button");
         this.value = '';
+        this.className = "RadioInput";
     }
 
     render() {

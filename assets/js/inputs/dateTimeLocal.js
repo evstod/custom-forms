@@ -5,6 +5,7 @@ class DateTimeLocalInput extends Input {
         this.max = '';
         this.placeholder = '';
         this.required = false;
+        this.className = "DateTimeLocalInput";
     }
 
     render() {

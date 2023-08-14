@@ -4,6 +4,7 @@ class FileInput extends Input {
         this.accept = "";
         this.mutliple = false;
         this.required = false;
+        this.className = "FileInput";
     }
     
     render() {

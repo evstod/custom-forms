@@ -3,6 +3,7 @@ class EmailInput extends Input {
         super("New Email", "customInput_email", "", "new_email");
         this.placeholder = '';
         this.required = false;
+        this.className = "EmailInput";
     }
 
     render() {

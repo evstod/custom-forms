@@ -5,6 +5,7 @@ class RangeInput extends Input {
         this.max = '';
         this.step = '';
         this.required = false;
+        this.className = "RangeInput";
     }
 
     render() {

@@ -3,6 +3,7 @@ class ImageInput extends Input {
         super("New Image", "customInput_image", "", "new_image");
         this.required = false;
         this.accept = "image/*";
+        this.className = "ImageInput";
     }
 
     render() {

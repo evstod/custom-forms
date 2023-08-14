@@ -2,6 +2,7 @@ class HiddenInput extends Input {
     constructor() {
         super("New Hidden Value", "customInput_hidden", "", "new_hidden_value");
         this.value = '';
+        this.className = "HiddenInput";
     }
     
     render() {

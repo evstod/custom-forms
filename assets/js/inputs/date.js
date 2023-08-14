@@ -5,6 +5,7 @@ class DateInput extends Input {
         this.max = '';
         this.placeholder = '';
         this.required = false;
+        this.className = "DateInput";
     }
 
     render() {
@@ -46,6 +47,7 @@ class MonthInput extends Input {
         super("New Month", "customInput_month", "", "new_month");
         this.placeholder = '';
         this.required = false;
+        this.className = "MonthInput";
     }
 
     render() {
@@ -83,6 +85,7 @@ class WeekInput extends Input {
         super("New Week", "customInput_week", "", "new_week");
         this.placeholder = '';
         this.required = false;
+        this.className = "WeekInput";
     }
 
     render() {
@@ -122,6 +125,7 @@ class TimeInput extends Input {
         this.max = '';
         this.placeholder = '';
         this.required = false;
+        this.className = "TimeInput";
     }
 
     render() {
