@@ -8,6 +8,7 @@ class ImageInput extends Input {
 
     render() {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses}" type="file" 
                 id="${this.name}" name="${this.name}" accept="${this.accept}"
                 ${this.required ? 'required' : ''} />
@@ -16,6 +17,7 @@ class ImageInput extends Input {
 
     renderTemplate(index) {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="file"   id="template_${index}" 
                  name="${this.name}" ${this.required ? 'required' : ''} />
         `

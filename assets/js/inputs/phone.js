@@ -8,6 +8,7 @@ class PhoneInput extends Input {
     
     render() {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses}" type="phone" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
@@ -16,6 +17,7 @@ class PhoneInput extends Input {
 
     renderTemplate(index) {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="phone"  id="template_${index}" 
                  name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />

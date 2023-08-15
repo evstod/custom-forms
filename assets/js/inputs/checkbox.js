@@ -80,8 +80,8 @@ class CheckboxInput extends Input {
     render() {
         return `
             <label>
-            ${this.label}
                 <input class="${this.primaryClass} ${this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" />
+                ${this.label}
             </label>
         `
     }
@@ -89,8 +89,8 @@ class CheckboxInput extends Input {
     renderTemplate() {
         return `
             <label>
-            ${this.label}
                 <input class="${this.primaryClass} ${this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" />
+                ${this.label}
             </label>
         `
     }

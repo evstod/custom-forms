@@ -7,6 +7,7 @@ class ColorInput extends Input {
 
     render() {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses}" type="color" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
@@ -15,6 +16,7 @@ class ColorInput extends Input {
 
     renderTemplate(index) {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="color"  id="template_${index}"
             name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />

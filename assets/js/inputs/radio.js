@@ -80,8 +80,8 @@ class RadioInput extends Input {
     render() {
         return `
             <label>
-            ${this.label}
                 <input class="${this.primaryClass} ${this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" />
+                ${this.label}
             </label>
         `
     }
@@ -89,8 +89,8 @@ class RadioInput extends Input {
     renderTemplate() {
         return `
             <label>
-            ${this.label}
                 <input class="${this.primaryClass} ${this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" />
+                ${this.label}
             </label>
         `
     }

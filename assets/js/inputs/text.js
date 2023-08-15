@@ -11,6 +11,7 @@ class TextInput extends Input {
 
     render() {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses}" type="text" 
                 id="${this.name}" name="${this.name}" value="${this.value}" 
                 maxlength="${this.maxlength}" size="${this.size}" 
@@ -20,6 +21,7 @@ class TextInput extends Input {
 
     renderTemplate(index) {
         return `
+            <label for="${this.name}">${this.label}</label>
             <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="text"  id="template_${index}" 
                  name="${this.name}" value="${this.value}" 
                 maxlength="${this.maxlength}" size="${this.size}" 
