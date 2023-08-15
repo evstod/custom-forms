@@ -14,7 +14,7 @@ class HiddenInput extends Input {
     
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="hidden"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="text"  id="template_${index}" 
                  name="${this.name}" value="${this.value}" />
         `
     }

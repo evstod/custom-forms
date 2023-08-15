@@ -17,7 +17,7 @@ class FileInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="file"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="file"  id="template_${index}" 
                  name="${this.name}" accept="${this.accept}" 
                 multiple="${this.mutliple}" ${this.required ? 'required' : ''} />
         `

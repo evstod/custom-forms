@@ -18,7 +18,7 @@ class DateTimeLocalInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="datetime-local"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="datetime-local"  id="template_${index}" 
                 name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
         `

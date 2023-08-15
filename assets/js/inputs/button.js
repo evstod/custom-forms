@@ -15,7 +15,7 @@ class ButtonInput extends Input {
 
     renderTemplate(index) {
         return `
-        <input type="button" class="${this.primaryClass} ${this.userDefinedClasses}" id="template_${index}" 
+        <input type="button" class="${this.primaryClass} ${this.userDefinedClasses} input-template" id="template_${index}" 
             name="${this.name}" value="${this.value}" ${this.required ? 'required' : ''}/>
         `;
     }

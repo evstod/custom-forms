@@ -182,15 +182,26 @@ function renderPreview() {
     console.log(inputs);
     var inputIndex = 0;
     inputs.forEach(input => {
-        console.log(typeof input)
         input.id = inputIndex;
         formPreview.innerHTML += input.renderTemplate(inputIndex++) + "</br>";
     });
+
+    Array.from(document.getElementsByClassName("input-template")).forEach(element => {
+        console.log(element);
+        element.addEventListener("click", handleInputTemplateClick);
+    });
+
 
     renderOptionsPane(lastClickedIndex);
 
     updateHiddenFields();
     console.log(2);
+}
+
+function handleInputTemplateClick(event) {
+    console.log(event.currentTarget);
+    var index = parseInt(event.currentTarget.id.split('_')[1]);
+    renderOptionsPane(index);
 }
 
 /**
@@ -246,8 +257,9 @@ function updateHiddenFields() {
     form_inputs_array_field.value = JSON.stringify(inputs);
     form_inputs_html_field.value = "";
 
+    var index = 0
     inputs.forEach(input => {
-        form_inputs_html_field.value += input.render();
+        form_inputs_html_field.value += input.render(index++);
     });
 
     console.log(form_inputs_array_field.value);

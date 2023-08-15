@@ -22,7 +22,7 @@ class TextAreaInput extends Input {
 
     renderTemplate(index) {
         return `
-            <textarea class="${this.primaryClass} ${this.userDefinedClasses}" id="${this.name}"  id="template_${index}" 
+            <textarea class="${this.primaryClass} ${this.userDefinedClasses} input-template" id="${this.name}"  id="template_${index}" 
                 name="${this.name}" rows="${this.rows}" cols="${this.cols}" wrap="${this.wrap}" 
                 ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''}
                  placeholder="${this.placeholder}" disabled>${this.value}</textarea>

@@ -26,7 +26,7 @@ class RadioGroupInput extends Input {
             optionsHtml += option.renderTemplate();
         });
         return  `
-        <div class="${this.primaryClass} ${this.userDefinedClasses}" id="template_${index}" >
+        <div class="${this.primaryClass} ${this.userDefinedClasses} input-template" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>

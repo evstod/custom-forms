@@ -18,7 +18,7 @@ class DateInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="date"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="date"  id="template_${index}" 
                 name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                  placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
         `
@@ -60,7 +60,7 @@ class MonthInput extends Input {
     
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="month"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="month"  id="template_${index}" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `
@@ -98,7 +98,7 @@ class WeekInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="week"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="week"  id="template_${index}" 
                  name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `
@@ -138,7 +138,7 @@ class TimeInput extends Input {
     
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="time"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="time"  id="template_${index}" 
                  name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
         `
