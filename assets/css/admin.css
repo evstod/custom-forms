@@ -42,3 +42,12 @@
 #form-preview, .custom-form  {
 
 }
+
+.wp-editor-area {
+    color: #000 !important;
+}
+
+.postarea {
+    /* Hide the deafult post body box */
+    display: none;
+}
