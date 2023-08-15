@@ -69,14 +69,44 @@ function createObjectsFromJSON(jsonString) {
         var className = jsonObj.className;
         console.log(className);
         if (!(typeof className == 'undefined')) {
-            // Use eval() to dynamically create an object of the specified class
+            // Use object map to reassign data to correct class
             var newObj = new (inputClasses[className])();
             
             // Copy properties from the JSON object to the new object
             Object.assign(newObj, jsonObj);
 
+            if (newObj instanceof CheckboxGroupInput) {
+                var newOptions = [];
+                newObj.options.forEach(option => function() {
+                    //Replace option with option classed to CheckboxInput
+                    var newOption = new CheckboxInput();
+                    Object.assign(newOption, option);
+                    newOptions.push(newOption);
+                });
+                newObj.options = newOptions;
+            } else if (newObj instanceof RadioGroupInput) {
+                var newOptions = [];
+                newObj.options.forEach(option => function() {
+                    //Replace option with option classed to RadioInput
+                    var newOption = new RadioInput();
+                    Object.assign(newOption, option);
+                    newOptions.push(newOption);
+                });
+                newObj.options = newOptions;
+            } else if (newObj instanceof SelectGroupInput) {
+                var newOptions = [];
+                newObj.options.forEach(option => function() {
+                    //Replace option with option classed to SelectInput
+                    var newOption = new SelectInput();
+                    Object.assign(newOption, option);
+                    newOptions.push(newOption);
+                });
+                newObj.options = newOptions;
+            }
+
             objects.push(newObj);
         }
+        else console.log('failure');
     });
   
     return objects;
