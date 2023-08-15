@@ -9,7 +9,7 @@ class FileInput extends Input {
     
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="file" 
                 id="${this.name}" name="${this.name}" accept="${this.accept}" 
                 multiple="${this.mutliple}" ${this.required ? 'required' : ''} />
         `
@@ -17,9 +17,9 @@ class FileInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="file"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="file"  id="template_${index}" 
                  name="${this.name}" accept="${this.accept}" 
-                multiple="${this.mutliple}" ${this.required ? 'required' : ''} disabled />
+                multiple="${this.mutliple}" ${this.required ? 'required' : ''} />
         `
     }
 

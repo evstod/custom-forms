@@ -13,7 +13,7 @@ class RadioGroupInput extends Input {
             optionsHtml += option.render();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}">
+        <div class="${this.primaryClass} ${this.userDefinedClasses}" id="${this.name}">
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
@@ -26,7 +26,7 @@ class RadioGroupInput extends Input {
             optionsHtml += option.renderTemplate();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="template_${index}" >
+        <div class="${this.primaryClass} ${this.userDefinedClasses}" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
@@ -81,7 +81,7 @@ class RadioInput extends Input {
         return `
             <label>
             ${this.label}
-                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" />
+                <input class="${this.primaryClass} ${this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" />
             </label>
         `
     }
@@ -90,7 +90,7 @@ class RadioInput extends Input {
         return `
             <label>
             ${this.label}
-                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" disabled />
+                <input class="${this.primaryClass} ${this.userDefinedClasses}" type="radio" id="${this.name}" name="${this.name}" value="${this.value}" />
             </label>
         `
     }

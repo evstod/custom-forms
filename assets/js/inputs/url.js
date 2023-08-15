@@ -8,7 +8,7 @@ class UrlInput extends Input {
     
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="url" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="url" 
                 id="${this.name}" name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `
@@ -16,7 +16,7 @@ class UrlInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="url"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="url"  id="template_${index}" 
                  name="${this.name}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
         `

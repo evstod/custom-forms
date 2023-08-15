@@ -11,7 +11,7 @@ class TextInput extends Input {
 
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="text" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="text" 
                 id="${this.name}" name="${this.name}" value="${this.value}" 
                 maxlength="${this.maxlength}" size="${this.size}" 
                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} />
@@ -20,7 +20,7 @@ class TextInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="text"  id="template_${index}" 
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="text"  id="template_${index}" 
                  name="${this.name}" value="${this.value}" 
                 maxlength="${this.maxlength}" size="${this.size}" 
                 placeholder="${this.placeholder}" ${this.required ? 'required' : ''} disabled />
