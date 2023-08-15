@@ -6,6 +6,7 @@ class SelectGroupInput extends Input {
         this.multiple = false;
         this.required = false;
         this.options = [];
+        this.className = "SelectGroupInput";
     }
 
     
@@ -80,6 +81,7 @@ class SelectInput extends Input {
     constructor() {
         super("New Option", "sub-input", "", "new_option");
         this.value = '';
+        this.className = "SelectInput";
     }
 
     render() {

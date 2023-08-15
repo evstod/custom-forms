@@ -3,6 +3,7 @@ class PhoneInput extends Input {
         super("New Phone", "customInput_phone", "", "new_phone");
         this.placeholder = '';
         this.required = false;
+        this.className = "PhoneInput";
     }
     
     render() {

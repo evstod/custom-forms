@@ -8,6 +8,7 @@ class TextAreaInput extends Input {
         this.readonly = false;
         this.placeholder = '';
         this.required = false;
+        this.className = "TextAreaInput";
     }
 
     render() {

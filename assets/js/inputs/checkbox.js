@@ -4,6 +4,7 @@ class CheckboxGroupInput extends Input {
         super("New Checkbox Group", "customInput_button", "", "new_checkbox_group");
         //options contains Checkbox Inputs for every checkbox input under the same group
         this.options = [];
+        this.className = "CheckboxGroupInput";
     }
 
     render() {
@@ -73,6 +74,7 @@ class CheckboxInput extends Input {
     constructor() {
         super("New Checkbox", "sub-input", "", "new_checkbox");
         this.value = '';
+        this.className = "CheckboxInput";
     }
 
     render() {

@@ -3,6 +3,7 @@ class UrlInput extends Input {
         super("New Url", "customInput_url", "", "new_url");
         this.placeholder = '';
         this.required = false;
+        this.className = "UrlInput";
     }
     
     render() {

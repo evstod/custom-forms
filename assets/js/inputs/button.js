@@ -3,6 +3,7 @@ class ButtonInput extends Input {
         super("New Button", "customInput_button", "", "new_button");
         this.value = '';
         this.required = false;
+        this.className = "ButtonInput";
     }
 
     render() {

@@ -6,6 +6,7 @@ class TextInput extends Input {
         this.size = '';
         this.placeholder = '';
         this.required = false;
+        this.className = "TextInput";
     }
 
     render() {

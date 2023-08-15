@@ -26,7 +26,14 @@ add_action('add_meta_boxes', 'add_form_custom_metaboxes');
  * Form Builder Metabox HTML
 */
 function form_builder_html($post) {
+    wp_nonce_field('form_save_inputs_array', 'form_inputs_array_nonce');
+    wp_nonce_field('form_save_inputs_html', 'form_inputs_html_nonce');
+
+    $form_inputs_array = get_post_meta($post->ID, '_form_inputs_array_key', true);
+    $form_inputs_html = get_post_meta($post->ID, '_form_inputs_html_key', true);
     ?>
+    <input type="hidden" name="form_inputs_array_field" value="<?php echo esc_attr($form_inputs_array) ?>">
+    <input type="hidden" name="form_inputs_html_field" value="<?php echo esc_attr($form_inputs_html) ?>">
     <div id="input-editor">
 
     </div>
@@ -58,9 +65,6 @@ function form_builder_html($post) {
         </div>
     </div>
 
-    <input type="hidden" name="form_array">
-    <input type="hidden" name="form_html">
-
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/button.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/checkbox.js' ?>"></script>
@@ -74,7 +78,10 @@ function form_builder_html($post) {
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/number.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/phone.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/radio.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/range.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/select.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/text.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/textArea.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/inputs/url.js' ?>"></script>
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/form-creator.js' ?>"></script>
     <?php
@@ -92,3 +99,69 @@ function form_submission_rules_html($post) {
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/submission-rules.js' ?>"></script>
     <?php
 }
+
+
+function form_save_inputs_array($post_id) {
+    if (!isset($_POST['form_inputs_array_nonce'])) {
+        return;
+    }
+
+    if (!wp_verify_nonce($_POST['form_inputs_array_nonce'], 'form_save_inputs_array')) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (!isset($_POST['form_inputs_array_field'])) {
+        return;
+    }
+
+    $inputs_data = $_POST['form_inputs_array_field'];
+
+    update_post_meta($post_id, '_form_inputs_array_key', $inputs_data);
+}
+
+add_action('save_post', 'form_save_inputs_array');
+
+function form_save_inputs_html($post_id) {
+    if (!isset($_POST['form_inputs_array_nonce'])) {
+        return;
+    }
+
+    if (!wp_verify_nonce($_POST['form_inputs_html_nonce'], 'form_save_inputs_html')) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (!isset($_POST['form_inputs_html_field'])) {
+        return;
+    }
+
+    $inputs_data = $_POST['form_inputs_html_field'];
+
+    update_post_meta($post_id, '_form_inputs_html_key', $inputs_data);
+}
+
+add_action('save_post', 'form_save_inputs_html');
+
+
+function form_add_custom_columns($columns) {
+    $columns['shortcode'] = 'shortcode';
+    return $columns;
+}
+
+add_filter('manage_form_posts_columns','form_add_custom_columns');
+
+
+function form_shortcode_custom_column($column, $post_id) {
+    if ($column == 'shortcode') {
+        echo "[custom-form id=$post_id]";
+    }
+}
+
+add_action( 'manage_posts_custom_column','form_shortcode_custom_column', 10, 2 );

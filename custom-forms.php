@@ -77,6 +77,21 @@
 
 
 
+function custom_form_shortcode_callback($args) {
+    $id = $args['id'];
+    $post = get_post($id);
+    if (is_null($post)) {
+        return "Form ID not found. Form " . $id;
+    }
+    $formHtml = get_post_meta($id, '_form_inputs_html_key');
+    if (!$formHtml) {
+        return "Error retrieving form metadata. Form " . $id;
+    }
+    
+    return "<form>" . $formHtml[0] . "</form>";
+}
+add_shortcode('custom-form', 'custom_form_shortcode_callback');
+
 
 
 /**
