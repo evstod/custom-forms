@@ -10,6 +10,7 @@ document.getElementById("add-email").addEventListener('click', function() {
     <div class='form_email-template' id='email_${emailIndex}'>
         <h3>Email ${emailIndex}</h3>
         <p>For multiple email recipients, seperate emails with a comma. Ex: john@john.com, meg@meg.com</p>
+        <input type='hidden' name='emails_count' value=0 />
         <div class='recipients'>
             <div class='long-input to'>
                 <label for='email_${emailIndex}_to'>To: </label>
@@ -48,6 +49,9 @@ document.getElementById("add-email").addEventListener('click', function() {
     bodyInput.addEventListener('change', handleInputChange);
 
     emailIndex++;
+
+    //Track the number of emails
+    document.getElementById('email_count').value = emailIndex;
 });
 
 function handleInputChange(event) {
@@ -66,7 +70,6 @@ function handleInputChange(event) {
         document.getElementById('publish').setAttribute('disabled', 'true');
         return;
     }
-    console.log('bad');
     //All good, enable the submission button
     document.getElementById('publish').setAttribute('disabled', 'false');
 }
