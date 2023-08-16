@@ -52,7 +52,6 @@ const form_inputs_html_field = document.getElementsByName('form_inputs_html_fiel
  */
 document.addEventListener("DOMContentLoaded", function() {
     inputs = createObjectsFromJSON(form_inputs_array_field.value);
-    console.log(inputs);
     renderPreview();
 });
 
@@ -67,7 +66,6 @@ function createObjectsFromJSON(jsonString) {
   
     jsonArray.forEach(function(jsonObj) {
         var className = jsonObj.className;
-        console.log(className);
         if (!(typeof className == 'undefined')) {
             // Use object map to reassign data to correct class
             var newObj = new (inputClasses[className])();
@@ -106,7 +104,6 @@ function createObjectsFromJSON(jsonString) {
 
             objects.push(newObj);
         }
-        else console.log('failure');
     });
   
     return objects;
@@ -116,7 +113,6 @@ function createObjectsFromJSON(jsonString) {
 //Function to handle input select button click
 function handleInputSelectClick(event) {
     const value = event.currentTarget.value;
-    console.log(`Button "${value}" was pressed.`);
 
     //Check for form inputs that are not "input" element types
 
@@ -189,7 +185,6 @@ function handleInputSelectClick(event) {
             console.error("Target Value does not coorelate to any input");
             return;
     }
-    console.log(inputObj);
 
     //Append input object to array and get its index
     lastClickedIndex = inputs.push(inputObj) - 1;
@@ -209,7 +204,6 @@ buttons.forEach((button) => {
  */
 function renderPreview() {
     formPreview.innerHTML = "";
-    console.log(inputs);
     var inputIndex = 0;
     inputs.forEach(input => {
         input.id = inputIndex;
@@ -217,7 +211,6 @@ function renderPreview() {
     });
 
     Array.from(document.getElementsByClassName("input-template")).forEach(element => {
-        console.log(element);
         element.addEventListener("click", handleInputTemplateClick);
     });
 
@@ -225,11 +218,9 @@ function renderPreview() {
     renderOptionsPane(lastClickedIndex);
 
     updateHiddenFields();
-    console.log(2);
 }
 
 function handleInputTemplateClick(event) {
-    console.log(event.currentTarget);
     var index = parseInt(event.currentTarget.id.split('_')[1]);
     renderOptionsPane(index);
 }
@@ -264,7 +255,6 @@ function renderOptionsPane(inputIndex) {
 
 function handleSubOptionInputChange(event) {
     var input = inputs[event.target.parentElement.parentElement.getAttribute("form-element-group-id")].options[event.target.parentElement.parentElement.getAttribute("form-element-id")];
-    console.log(input);
     var editedAttributeName = event.target.name.replace('form-option-', '');
     input[editedAttributeName] = event.target.value;
     renderPreview();
@@ -291,7 +281,4 @@ function updateHiddenFields() {
     inputs.forEach(input => {
         form_inputs_html_field.value += input.render(index++);
     });
-
-    console.log(form_inputs_array_field.value);
-    console.log(form_inputs_html_field.value);
 }
