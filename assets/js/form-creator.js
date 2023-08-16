@@ -110,11 +110,13 @@ function createObjectsFromJSON(jsonString) {
   }
   
 
-//Function to handle input select button click
+/**
+ * Adds input object to list by the string in event.currentTarget.value
+ * @param {Event} event the event object
+ * @returns void
+ */
 function handleInputSelectClick(event) {
     const value = event.currentTarget.value;
-
-    //Check for form inputs that are not "input" element types
 
     //The input object to be put in the input list rendered
     var inputObj;
@@ -227,6 +229,7 @@ function handleInputTemplateClick(event) {
 
 /**
  * Render the option inputs available for the specified input
+ * @param {Number} inputIndex the index of inputs where the clicked input is
  */
 function renderOptionsPane(inputIndex) {
     //Check if inputIndex didnt set correctly
@@ -253,6 +256,10 @@ function renderOptionsPane(inputIndex) {
     })
 }
 
+/**
+ * update a child of an input when by its shown options
+ * @param {Event} event the event object
+ */
 function handleSubOptionInputChange(event) {
     var input = inputs[event.target.parentElement.parentElement.getAttribute("form-element-group-id")].options[event.target.parentElement.parentElement.getAttribute("form-element-id")];
     var editedAttributeName = event.target.name.replace('form-option-', '');
@@ -262,6 +269,7 @@ function handleSubOptionInputChange(event) {
 
 /**
  * Set attribute of an object to new value when matching input is changed
+ * @param {Event} event the event object
  */
 function handleOptionInputChange(event) {
     var input = inputs[lastClickedIndex];
