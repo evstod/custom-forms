@@ -89,14 +89,17 @@ function form_builder_html($post) {
 
 
 function form_submission_rules_html($post) {
+    wp_nonce_field('form_save_emails_array', 'form_emails_array_nonce');
+    $form_emails = get_post_meta($post->ID, '_form_emails_array_key', true);
     ?>
+    <input type="hidden" name="form_emails_array_field" id="form_emails_array_field" value="<?php echo esc_attr($form_emails) ?>">
     <div id="email-container">
         <p><b>Note:</b> To include the submitted value of an input, represent the input using its name in curly brackets. Ex: {an_input_name}</p>
-
     </div>
     <button type="button" id="add-email">Add Email</button>
 
     <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/submission-rules.js' ?>"></script>
+    <script src="<?php echo plugin_dir_url('custom-forms.php') . 'custom-forms/assets/js/email-template.js' ?>"></script>
     <?php
 }
 
@@ -123,7 +126,7 @@ function form_save_inputs_array($post_id) {
     update_post_meta($post_id, '_form_inputs_array_key', $inputs_data);
 }
 
-add_action('save_post', 'form_save_inputs_array');
+add_action('save_post', 'form_save_inputs_array', 10);
 
 function form_save_inputs_html($post_id) {
     if (!isset($_POST['form_inputs_array_nonce'])) {
@@ -147,7 +150,31 @@ function form_save_inputs_html($post_id) {
     update_post_meta($post_id, '_form_inputs_html_key', $inputs_data);
 }
 
-add_action('save_post', 'form_save_inputs_html');
+add_action('save_post', 'form_save_inputs_html', 11);
+
+function form_save_emails_array($post_id) {
+    if (!isset($_POST['form_emails_array_nonce'])) {
+        return;
+    }
+
+    if (!wp_verify_nonce($_POST['form_emails_array_nonce'], 'form_save_emails_array')) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (!isset($_POST['form_emails_array'])) {
+        return;
+    }
+
+    $emails_array = $_POST['form_emails_array_field'];
+
+    update_post_meta($post_id, '_form_emails_array_key', $emails_array);
+}
+
+add_action('save_post', 'form_save_emails_array', 12);
 
 
 function form_add_custom_columns($columns) {

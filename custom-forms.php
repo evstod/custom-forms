@@ -88,7 +88,10 @@ function custom_form_shortcode_callback($args) {
         return "Error retrieving form metadata. Form " . $id;
     }
     
-    return "<form>" . $formHtml[0] . "</form>";
+    return "<form action='submit-custom-form' id='form-$id' class='custom-form'>"
+     . $formHtml[0]
+     . "<input type='hidden' name='form_id' value=$id />"
+     . "</form>";
 }
 add_shortcode('custom-form', 'custom_form_shortcode_callback');
 
