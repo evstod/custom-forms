@@ -14,8 +14,8 @@ function addEmailTemplate(email) {
     updateEmailsArrayField();
 }
 
-function updateEmailTemplate(to, cc, bcc, body, index) {
-    emailTemplates[index-1].setAttributes(to, cc, bcc, body);
+function updateEmailTemplate(to, cc, bcc, subject, body, index) {
+    emailTemplates[index-1].setAttributes(to, cc, bcc, subject, body);
     updateEmailsArrayField();
 }
 
@@ -71,6 +71,29 @@ document.getElementById("add-email").addEventListener('click', function() {
 
     emailDiv.appendChild(recipientsDiv);
 
+
+    // Add Subject input
+    const subjectDiv = document.createElement('div');
+    subjectDiv.classList.add('subject-input');
+    
+    const subjectLabel = document.createElement('label');
+    subjectLabel.htmlFor = `email_${emailIndex}_subject`;
+    subjectLabel.textContent = 'Subject: ';
+    subjectDiv.appendChild(subjectLabel);
+    
+    const subjectInput = document.createElement('input');
+    subjectInput.type = 'text';
+    subjectInput.name = `email_${emailIndex}_subject`;
+    subjectInput.id = `email_${emailIndex}_subject`;
+    subjectDiv.appendChild(subjectInput);
+
+    const errorMessage = document.createElement('p');
+    errorMessage.classList.add('error-message');
+    subjectDiv.appendChild(errorMessage);
+    
+    emailDiv.appendChild(subjectDiv);
+
+
     const wpEditorWrapDiv = document.createElement('div');
     wpEditorWrapDiv.classList.add('wp-core-ui', 'wp-editor-wrap');
 
@@ -104,11 +127,13 @@ document.getElementById("add-email").addEventListener('click', function() {
     var toInput = document.getElementById(`email_${emailIndex}_to`);
     var ccInput = document.getElementById(`email_${emailIndex}_cc`);
     var bccInput = document.getElementById(`email_${emailIndex}_bcc`);
+    var subjInput = document.getElementById(`email_${emailIndex}_subject`);
     var bodyInput = document.getElementById(`email_${emailIndex}_body`);
 
     toInput.addEventListener('change', handleInputChange);
     ccInput.addEventListener('change', handleInputChange);
     bccInput.addEventListener('change', handleInputChange);
+    subjInput.addEventListener('change', handleInputChange);
     bodyInput.addEventListener('change', handleInputChange);
 
     emailIndex++;
@@ -145,11 +170,13 @@ function handleInputChange(event) {
     var cc = document.getElementById(`email_${index}_cc`).value.replace(" ", "").split(",");
     //Get bcc recipients and split them into an array
     var bcc = document.getElementById(`email_${index}_bcc`).value.replace(" ", "").split(",");
+    //Get subject
+    var subject = document.getElementById(`email_${index}_subject`).value;
     //Get body
     var body = document.getElementById(`email_${index}_body`).value;
 
     //update Email object with new content
-    updateEmailTemplate(to, cc, bcc, body, index);
+    updateEmailTemplate(to, cc, bcc, subject, body, index);
 
     //All good, enable the submission button
     document.getElementById('publish').setAttribute('disabled', 'false');
