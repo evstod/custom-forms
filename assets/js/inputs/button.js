@@ -8,15 +8,17 @@ class ButtonInput extends Input {
 
     render() {
         return `
-        <input type="button" class="${this.primaryClass + ' ' + this.userDefinedClasses}" 
+        <label for="${this.name}">${this.label}</label>
+        <input type="button" class="${this.primaryClass} ${this.userDefinedClasses}" 
             name="${this.name}" value="${this.value}" ${this.required ? 'required' : ''} />
         `
     }
 
     renderTemplate(index) {
         return `
-        <input type="button" class="${this.primaryClass + ' ' + this.userDefinedClasses} id="template_${index}" 
-            name="${this.name}" value="${this.value}" ${this.required ? 'required' : ''} disabled/>
+        <label for="${this.name}">${this.label}</label>
+        <input type="button" class="${this.primaryClass} ${this.userDefinedClasses} input-template" id="template_${index}" 
+            name="${this.name}" value="${this.value}" ${this.required ? 'required' : ''}/>
         `;
     }
 

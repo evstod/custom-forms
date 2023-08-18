@@ -10,7 +10,8 @@ class RangeInput extends Input {
 
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="range" 
+            <label for="${this.name}">${this.label}</label>
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="range" 
                 id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 step="${this.step}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
@@ -19,7 +20,8 @@ class RangeInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="range"  id="template_${index}" 
+            <label for="${this.name}">${this.label}</label>
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="range"  id="template_${index}" 
                  name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 step="${this.step}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} disabled />

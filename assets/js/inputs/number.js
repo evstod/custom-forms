@@ -12,7 +12,8 @@ class NumberInput extends Input {
     
     render() {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="number" 
+            <label for="${this.name}">${this.label}</label>
+            <input class="${this.primaryClass} ${this.userDefinedClasses}" type="number" 
                 id="${this.name}" name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 step="${this.step}" placeholder="${this.placeholder}" 
                 ${this.required ? 'required' : ''} />
@@ -21,10 +22,11 @@ class NumberInput extends Input {
 
     renderTemplate(index) {
         return `
-            <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="number"  id="template_${index}" 
+            <label for="${this.name}">${this.label}</label>
+            <input class="${this.primaryClass} ${this.userDefinedClasses} input-template" type="number"  id="template_${index}" 
                  name="${this.name}" min="${this.maxlength}" max="${this.size}" 
                 step="${this.step}" placeholder="${this.placeholder}" 
-                ${this.required ? 'required' : ''} disabled />
+                ${this.required ? 'required' : ''} />
         `
     }
 
