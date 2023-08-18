@@ -92,12 +92,71 @@ function custom_form_shortcode_callback($args) {
         return "Error retrieving form metadata. Form " . $id;
     }
     
-    return "<form action='submit-custom-form' id='form-$id' class='custom-form'>"
+    return "<form method='POST' action='" . admin_url( 'admin-post.php' ) . "' id='form-$id' class='custom-form'>"
      . $formHtml[0]
+     . "<input type='hidden' name='action' value='submit_custom_form' />"
      . "<input type='hidden' name='form_id' value=$id />"
+     . "<input type='submit' />"
      . "</form>";
 }
 add_shortcode('custom-form', 'custom_form_shortcode_callback');
+
+
+
+ /**
+ * Collect the submission rules for sending and write emails for each specified.
+ * Activates on form POST
+ * Redirects back to global post and adds success state to url parameters
+ */
+function handle_form_submit($post_id) {
+    echo 11111;
+    //The email address to send from
+    //TODO: Create option for this
+    $from_email = "eds2083@rit.edu";
+
+    //False if the submission failed
+    $submitted = true;
+
+    if (!(isset($_POST) && isset($_POST['form-id']))) {
+        return;
+    }
+    $form = get_post($_POST['form-id']);
+    $emails = json_decode(get_post_meta($post_id, '_form_emails_array_key'), true);
+
+
+    apply_filters('wp_mail_from', $from_email);
+
+
+    foreach ($emails as $email) {
+        //Email headers (the sending information)
+        $headers = [];
+        
+        //Set email to send from
+        array_push($headers, `From: Test <$from_email>`);
+        //Add CC addresses
+        foreach ($email['cc'] as $cc) {
+            array_push($headers, `Cc: ` . $cc);
+        }
+        //Add BCC Addresses
+        foreach ($email['bcc'] as $bcc) {
+            array_push($headers, `Bcc: ` . $bcc);
+        }
+        
+        //Mail it
+        $submitted = wp_mail($email['to'], $email['subject'], $email['body'], $headers);
+
+        if (!$submitted) {
+            wp_redirect(the_permalink() . "?submitted=0");
+            exit();
+        }
+    }
+
+    wp_redirect(the_permalink() . "?submitted=1");
+    exit();
+}
+
+add_action("admin_post_submit_custom_form", "handle_form_submit");
+add_action("admin_post_nopriv_submit_custom_form", "handle_form_submit");
 
 
 

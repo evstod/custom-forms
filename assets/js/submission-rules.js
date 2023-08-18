@@ -191,7 +191,10 @@ function handleInputChange(event) {
         //Disable the submit button to prevent broken submissions
         document.getElementById('publish').setAttribute('disabled', 'true');
         return;
-    } else errorMessageContainer.innerHTML = "";
+    } else {
+        errorMessageContainer.innerHTML = "";
+        document.getElementById('publish').removeAttribute('disabled');
+    }
 
     //Get email index
     var index = parseInt(event.currentTarget.name.split("_")[1]);
@@ -224,11 +227,11 @@ function checkInputNames(value) {
     var resultIndex;
 
     var invalidNames = [];
-    while (resultIndex = value.search(INPUT_NAME_REGEX) != -1) {
+    while ((resultIndex = value.search(INPUT_NAME_REGEX)) != -1) {
         //Get the end of the result: the first '}' after the detected '{'
         var resultEndIndex = value.indexOf('}', resultIndex+1);
         //Get the result: everything between '{' and '}'
-        var result = value.substring(resultIndex, resultEndIndex);
+        var result = value.substring(resultIndex+1, resultEndIndex);
 
         //check for inputs with result name
         var associatedInput = formPreview.querySelector(`input[name="${result}"], select[name="${result}"], textarea[name="${result}"]`);
