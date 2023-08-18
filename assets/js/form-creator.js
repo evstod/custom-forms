@@ -52,7 +52,6 @@ const form_inputs_html_field = document.getElementsByName('form_inputs_html_fiel
  */
 document.addEventListener("DOMContentLoaded", function() {
     inputs = createObjectsFromJSON(form_inputs_array_field.value);
-    console.log(inputs);
     renderPreview();
 });
 
@@ -67,13 +66,41 @@ function createObjectsFromJSON(jsonString) {
   
     jsonArray.forEach(function(jsonObj) {
         var className = jsonObj.className;
-        console.log(className);
         if (!(typeof className == 'undefined')) {
-            // Use eval() to dynamically create an object of the specified class
+            // Use object map to reassign data to correct class
             var newObj = new (inputClasses[className])();
             
             // Copy properties from the JSON object to the new object
             Object.assign(newObj, jsonObj);
+
+            if (newObj instanceof CheckboxGroupInput) {
+                var newOptions = [];
+                newObj.options.forEach(option => function() {
+                    //Replace option with option classed to CheckboxInput
+                    var newOption = new CheckboxInput();
+                    Object.assign(newOption, option);
+                    newOptions.push(newOption);
+                });
+                newObj.options = newOptions;
+            } else if (newObj instanceof RadioGroupInput) {
+                var newOptions = [];
+                newObj.options.forEach(option => function() {
+                    //Replace option with option classed to RadioInput
+                    var newOption = new RadioInput();
+                    Object.assign(newOption, option);
+                    newOptions.push(newOption);
+                });
+                newObj.options = newOptions;
+            } else if (newObj instanceof SelectGroupInput) {
+                var newOptions = [];
+                newObj.options.forEach(option => function() {
+                    //Replace option with option classed to SelectInput
+                    var newOption = new SelectInput();
+                    Object.assign(newOption, option);
+                    newOptions.push(newOption);
+                });
+                newObj.options = newOptions;
+            }
 
             objects.push(newObj);
         }
@@ -83,12 +110,13 @@ function createObjectsFromJSON(jsonString) {
   }
   
 
-//Function to handle input select button click
+/**
+ * Adds input object to list by the string in event.currentTarget.value
+ * @param {Event} event the event object
+ * @returns void
+ */
 function handleInputSelectClick(event) {
     const value = event.currentTarget.value;
-    console.log(`Button "${value}" was pressed.`);
-
-    //Check for form inputs that are not "input" element types
 
     //The input object to be put in the input list rendered
     var inputObj;
@@ -159,7 +187,6 @@ function handleInputSelectClick(event) {
             console.error("Target Value does not coorelate to any input");
             return;
     }
-    console.log(inputObj);
 
     //Append input object to array and get its index
     lastClickedIndex = inputs.push(inputObj) - 1;
@@ -179,22 +206,30 @@ buttons.forEach((button) => {
  */
 function renderPreview() {
     formPreview.innerHTML = "";
-    console.log(inputs);
     var inputIndex = 0;
     inputs.forEach(input => {
-        console.log(typeof input)
         input.id = inputIndex;
         formPreview.innerHTML += input.renderTemplate(inputIndex++) + "</br>";
     });
 
+    Array.from(document.getElementsByClassName("input-template")).forEach(element => {
+        element.addEventListener("click", handleInputTemplateClick);
+    });
+
+
     renderOptionsPane(lastClickedIndex);
 
     updateHiddenFields();
-    console.log(2);
+}
+
+function handleInputTemplateClick(event) {
+    var index = parseInt(event.currentTarget.id.split('_')[1]);
+    renderOptionsPane(index);
 }
 
 /**
  * Render the option inputs available for the specified input
+ * @param {Number} inputIndex the index of inputs where the clicked input is
  */
 function renderOptionsPane(inputIndex) {
     //Check if inputIndex didnt set correctly
@@ -221,9 +256,12 @@ function renderOptionsPane(inputIndex) {
     })
 }
 
+/**
+ * update a child of an input when by its shown options
+ * @param {Event} event the event object
+ */
 function handleSubOptionInputChange(event) {
     var input = inputs[event.target.parentElement.parentElement.getAttribute("form-element-group-id")].options[event.target.parentElement.parentElement.getAttribute("form-element-id")];
-    console.log(input);
     var editedAttributeName = event.target.name.replace('form-option-', '');
     input[editedAttributeName] = event.target.value;
     renderPreview();
@@ -231,6 +269,7 @@ function handleSubOptionInputChange(event) {
 
 /**
  * Set attribute of an object to new value when matching input is changed
+ * @param {Event} event the event object
  */
 function handleOptionInputChange(event) {
     var input = inputs[lastClickedIndex];
@@ -246,10 +285,8 @@ function updateHiddenFields() {
     form_inputs_array_field.value = JSON.stringify(inputs);
     form_inputs_html_field.value = "";
 
+    var index = 0
     inputs.forEach(input => {
-        form_inputs_html_field.value += input.render();
+        form_inputs_html_field.value += input.render(index++);
     });
-
-    console.log(form_inputs_array_field.value);
-    console.log(form_inputs_html_field.value);
 }

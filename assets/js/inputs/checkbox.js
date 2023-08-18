@@ -7,13 +7,13 @@ class CheckboxGroupInput extends Input {
         this.className = "CheckboxGroupInput";
     }
 
-    render() {
+    render(index) {
         var optionsHtml = ``;
         this.options.forEach(option => {
             optionsHtml += option.render();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="template_${index}" >
+        <div class="${this.primaryClass} ${this.userDefinedClasses}" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
@@ -26,7 +26,7 @@ class CheckboxGroupInput extends Input {
             optionsHtml += option.renderTemplate();
         });
         return  `
-        <div class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="template_${index}" >
+        <div class="${this.primaryClass} ${this.userDefinedClasses} input-template" id="template_${index}" >
             <p>${this.label}</p>
             ${optionsHtml}
         </div>
@@ -80,8 +80,8 @@ class CheckboxInput extends Input {
     render() {
         return `
             <label>
-            ${this.label}
-                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" />
+                <input class="${this.primaryClass} ${this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" />
+                ${this.label}
             </label>
         `
     }
@@ -89,8 +89,8 @@ class CheckboxInput extends Input {
     renderTemplate() {
         return `
             <label>
-            ${this.label}
-                <input class="${this.primaryClass + ' ' + this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" disabled />
+                <input class="${this.primaryClass} ${this.userDefinedClasses}" type="checkbox" id="${this.name}" name="${this.name}" value="${this.value}" />
+                ${this.label}
             </label>
         `
     }

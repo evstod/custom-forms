@@ -13,7 +13,8 @@ class TextAreaInput extends Input {
 
     render() {
         return `
-            <textarea class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}" 
+            <label for="${this.name}">${this.label}</label>
+            <textarea class="${this.primaryClass} ${this.userDefinedClasses}" id="${this.name}" 
                 name="${this.name}" rows="${this.rows}" cols="${this.cols}" wrap="${this.wrap}" 
                 ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''}
                  placeholder="${this.placeholder}">${this.value}</textarea>
@@ -22,7 +23,8 @@ class TextAreaInput extends Input {
 
     renderTemplate(index) {
         return `
-            <textarea class="${this.primaryClass + ' ' + this.userDefinedClasses}" id="${this.name}"  id="template_${index}" 
+            <label for="${this.name}">${this.label}</label>
+            <textarea class="${this.primaryClass} ${this.userDefinedClasses} input-template" id="${this.name}"  id="template_${index}" 
                 name="${this.name}" rows="${this.rows}" cols="${this.cols}" wrap="${this.wrap}" 
                 ${this.readonly ? 'readonly' : ''} ${this.required ? 'required' : ''}
                  placeholder="${this.placeholder}" disabled>${this.value}</textarea>
