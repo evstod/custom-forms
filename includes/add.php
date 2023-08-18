@@ -87,7 +87,9 @@ function form_builder_html($post) {
     <?php
 }
 
-
+/**
+ * Sumbission Rules Metabox HTML
+ */
 function form_submission_rules_html($post) {
     wp_nonce_field('form_save_emails_array', 'form_emails_array_nonce');
     $form_emails = get_post_meta($post->ID, '_form_emails_array_key', true);
@@ -104,6 +106,9 @@ function form_submission_rules_html($post) {
 }
 
 
+/**
+ * Save the inputs JSON array sent via POST on Edit Form submission
+ */
 function form_save_inputs_array($post_id) {
     if (!isset($_POST['form_inputs_array_nonce'])) {
         return;
@@ -128,6 +133,9 @@ function form_save_inputs_array($post_id) {
 
 add_action('save_post', 'form_save_inputs_array', 10);
 
+/**
+ * Save the inputs html string sent via POST on Edit Form submission
+ */
 function form_save_inputs_html($post_id) {
     if (!isset($_POST['form_inputs_array_nonce'])) {
         return;
@@ -152,6 +160,9 @@ function form_save_inputs_html($post_id) {
 
 add_action('save_post', 'form_save_inputs_html', 11);
 
+/**
+ * Save the emails JSON array sent via POST on Edit Form submission
+ */
 function form_save_emails_array($post_id) {
     if (!isset($_POST['form_emails_array_nonce'])) {
         return;
@@ -173,22 +184,24 @@ function form_save_emails_array($post_id) {
 
     update_post_meta($post_id, '_form_emails_array_key', $emails_array);
 }
-
 add_action('save_post', 'form_save_emails_array', 12);
 
-
+/**
+ * Add column 'shortcode' to Forms listings
+ */
 function form_add_custom_columns($columns) {
     $columns['shortcode'] = 'shortcode';
     return $columns;
 }
-
 add_filter('manage_form_posts_columns','form_add_custom_columns');
 
-
+/**
+ * Generate content of shortcode column
+ * Populate with the expected shortcode for each form
+ */
 function form_shortcode_custom_column($column, $post_id) {
     if ($column == 'shortcode') {
         echo "[custom-form id=$post_id]";
     }
 }
-
 add_action( 'manage_posts_custom_column','form_shortcode_custom_column', 10, 2 );

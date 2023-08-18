@@ -1,28 +1,52 @@
+//The regex used to detect tagged input values in the email builders
 const INPUT_NAME_REGEX = /\{(\w+)\}/;
 
+//The email creator container
 const emailContainer = document.getElementById("email-container");
 
+//The hidden input that stores the emails array json
 const emailsArrayField = document.getElementById("form_emails_array_field");
 
+//The number id of the email last made (1-indexed)
 var emailIndex = document.getElementsByClassName('form_email-template').length;
 if (emailIndex == 0) emailIndex = 1;
 
+//The array of created email templates
 var emailTemplates = [];
 
+/**
+ * Push an email to the array and update the JSON
+ * @param {EmailTemplate} email The EmailTemplate to be pushed
+ */
 function addEmailTemplate(email) {
     emailTemplates.push(email);
     updateEmailsArrayField();
 }
 
+/**
+ * Replace the data of an object in the email template array
+ * @param {Array} to The addresses to be added the To header
+ * @param {Array} cc The addresses to be added the Cc header
+ * @param {Array} bcc The addresses to be added the Bcc header
+ * @param {String} subject The subject line of the email
+ * @param {String} body The body of the email
+ * @param {*} index The index to update in the array
+ */
 function updateEmailTemplate(to, cc, bcc, subject, body, index) {
     emailTemplates[index-1].setAttributes(to, cc, bcc, subject, body);
     updateEmailsArrayField();
 }
 
+/**
+ * Update the emails array JSON input
+ */
 function updateEmailsArrayField() {
     emailsArrayField.value = JSON.stringify(emailTemplates);
 }
 
+/**
+ * Add a new email builder when the Add Email button is clicked
+ */
 document.getElementById("add-email").addEventListener('click', function() {
     console.log(emailIndex);
 
@@ -38,12 +62,15 @@ document.getElementById("add-email").addEventListener('click', function() {
     p.textContent = 'For multiple email recipients, separate emails with a comma. Ex: john@john.com, meg@meg.com';
     emailDiv.appendChild(p);
 
+    //Add email count input
     const hiddenInput = document.createElement('input');
     hiddenInput.type = 'hidden';
     hiddenInput.name = 'emails_count';
     hiddenInput.value = 0;
+
     emailDiv.appendChild(hiddenInput);
 
+    //Add recipients inputs (to, cc, bcc)
     const recipientsDiv = document.createElement('div');
     recipientsDiv.classList.add('recipients');
 
@@ -93,7 +120,7 @@ document.getElementById("add-email").addEventListener('click', function() {
     
     emailDiv.appendChild(subjectDiv);
 
-
+    //Add body input
     const wpEditorWrapDiv = document.createElement('div');
     wpEditorWrapDiv.classList.add('wp-core-ui', 'wp-editor-wrap');
 
@@ -124,24 +151,31 @@ document.getElementById("add-email").addEventListener('click', function() {
     emailContainer.appendChild(emailDiv);
 
 
+    //Get the element for each input
     var toInput = document.getElementById(`email_${emailIndex}_to`);
     var ccInput = document.getElementById(`email_${emailIndex}_cc`);
     var bccInput = document.getElementById(`email_${emailIndex}_bcc`);
     var subjInput = document.getElementById(`email_${emailIndex}_subject`);
     var bodyInput = document.getElementById(`email_${emailIndex}_body`);
 
+    //Assign 'change' listener to each input
     toInput.addEventListener('change', handleInputChange);
     ccInput.addEventListener('change', handleInputChange);
     bccInput.addEventListener('change', handleInputChange);
     subjInput.addEventListener('change', handleInputChange);
     bodyInput.addEventListener('change', handleInputChange);
 
+    //Iterate to next allowed id
     emailIndex++;
 
     //Add blank email template to array
     addEmailTemplate(new EmailTemplate);
 });
 
+/**
+ * Update the associated object when one of it's inputs are updated
+ * @param {Event} event click event
+ */
 function handleInputChange(event) {
     console.log(event.currentTarget.id);
     //The element that contains errors relating to the target
@@ -150,7 +184,6 @@ function handleInputChange(event) {
     var check = checkInputNames(event.target.value);
     //If there are invalid names, show the user which ones
     if (check != true) {
-        console.log('good');
         errorMessageContainer.innerHTML = "The following input names are not found in the form: ";
         check.forEach(name => {
             errorMessageContainer.innerHTML += name + ","
@@ -182,6 +215,11 @@ function handleInputChange(event) {
     document.getElementById('publish').setAttribute('disabled', 'false');
 }
 
+/**
+ * Check the validity of the specified input value templates in an input string
+ * @param {String} value the input value
+ * @returns {Boolean, Array} true when valid, array of invalid passed names when failed
+ */
 function checkInputNames(value) {
     var resultIndex;
 
@@ -202,14 +240,12 @@ function checkInputNames(value) {
         }
 
         //Omit the result and '{}' from the value string, replace with associated input value
-        //value = value.substring(0, resultIndex-1) + associatedInput.value + value.substring(resultEndIndex+1);
         value = value.substring(0, resultIndex-1) + value.substring(resultEndIndex+1);
     }
 
     console.log(invalidNames);
     //If there are invalid results
     if (invalidNames.length > 0) {
-        console.log('aa');
         //return array of invalid results
         return invalidNames;
     }

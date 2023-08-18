@@ -76,7 +76,11 @@
  add_action('wp_enqueue_scripts', 'enqueue');
 
 
-
+/**
+ * Print the form to the current page
+ * 
+ * Input html is wrapped in a form with a custom action handler
+ */
 function custom_form_shortcode_callback($args) {
     $id = $args['id'];
     $post = get_post($id);
